@@ -317,6 +317,10 @@ export const register: Register = on => {
     for (const note of notes) {
       $.ui.toast(`Looksmith: ${note}`)
     }
+    // The desktop may ask for the bar before this start has finished and keep that
+    // empty answer; with the theme Off nothing changes later, so the bar (the only
+    // way back on from this session) would never show. Ask for it again now.
+    $.ui.invalidate('ui.render')
     // Every session follows the saved choice: a pick in one session (Off included)
     // reaches the others within SYNC_MS, so no session keeps a moving pond the
     // person turned off elsewhere. The OS is read less often (it spawns processes)
@@ -340,7 +344,8 @@ export const register: Register = on => {
             if (changed) $.ui.invalidate('ui.render')
           }
           await apply($)
-          if (applied !== before) $.ui.invalidate('ui.render')
+          // The first ticks also redraw, for a desktop that attached after the start.
+          if (applied !== before || ticks <= 2) $.ui.invalidate('ui.render')
         } finally {
           busy = false
         }
