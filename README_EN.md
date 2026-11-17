@@ -8,13 +8,22 @@ Ships with **Koi Pond**: a flat-vector koi pond with lily pads and lotus flowers
 
 ## Install
 
-In a Claude Code session, run:
+**Option 1: a terminal (quickest).** Open PowerShell, Terminal or cmd (not the Claude desktop chat box) and run:
 
 ```
-/plugin install looksmith --marketplace cuongphamthe185/looksmith
+claude plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
 
-Answer `y` to add the marketplace, then pick a scope. Start a new session (or restart Claude) and the theme bar appears above the input.
+This adds the `cuongphamthe185/looksmith` marketplace and installs the plugin for your user account (scope `user`). Or step by step:
+
+```
+claude plugin marketplace add cuongphamthe185/looksmith
+claude plugin install looksmith@looksmith
+```
+
+**Option 2: in the Claude desktop app.** Type `/plugin` in the chat box (or open the app's plugin manager), add the marketplace `cuongphamthe185/looksmith`, then install **looksmith** from the list. Note: typing the whole line `/plugin install ... --marketplace ...` into the desktop chat box only opens the plugin manager and ignores the rest; that line works in Claude Code running in a terminal.
+
+Then start a new session (or restart Claude) and the theme bar appears above the input.
 
 Requires a Claude desktop build that draws mod themes (tested on Claude desktop 5.11 for Windows). The terminal and editor extensions draw no themes.
 

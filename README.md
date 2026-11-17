@@ -8,13 +8,22 @@ Theme đầu tiên là **Koi Pond**: ao cá koi vẽ phẳng, có lá sen và ho
 
 ## Cài đặt
 
-Trong một phiên Claude Code, chạy:
+**Cách 1: terminal (nhanh nhất).** Mở PowerShell, Terminal hoặc cmd (không phải ô chat của Claude desktop) và chạy:
 
 ```
-/plugin install looksmith --marketplace cuongphamthe185/looksmith
+claude plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
 
-Trả lời `y` để thêm marketplace, rồi chọn phạm vi cài. Mở phiên mới (hoặc khởi động lại Claude), hàng chọn theme sẽ hiện ngay trên ô nhập.
+Lệnh này tự thêm marketplace `cuongphamthe185/looksmith` rồi cài plugin cho tài khoản của bạn (phạm vi `user`). Hoặc làm từng bước:
+
+```
+claude plugin marketplace add cuongphamthe185/looksmith
+claude plugin install looksmith@looksmith
+```
+
+**Cách 2: trong app Claude desktop.** Gõ `/plugin` trong ô chat (hoặc vào mục quản lý plugin của app), thêm marketplace bằng `cuongphamthe185/looksmith`, rồi cài **looksmith** từ danh sách. Lưu ý: gõ cả dòng `/plugin install ... --marketplace ...` vào ô chat của app desktop chỉ mở khung quản lý plugin, phần còn lại của dòng bị bỏ qua; dòng đó chỉ dùng được trong Claude Code chạy ở terminal.
+
+Cài xong, mở phiên mới (hoặc khởi động lại Claude), hàng chọn theme sẽ hiện ngay trên ô nhập.
 
 Cần bản Claude desktop có hỗ trợ theme cho mod (đã thử trên Claude desktop 5.11 cho Windows). Bản terminal và tiện ích trong trình soạn thảo không hiển thị theme.
 
