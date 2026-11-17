@@ -2,97 +2,63 @@
 
 **Tiếng Việt** · [English](README_EN.md)
 
-Bộ theme cho ứng dụng Claude desktop. Chọn theme từ một ô chọn; chế độ sáng/tối tự theo hệ điều hành (Windows, macOS, GNOME), hoặc cố định một chế độ.
+Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối theo hệ điều hành, có chuyển động và kính trong.
 
-Theme đầu tiên là **Koi Pond**: ao cá koi vẽ phẳng, có lá sen và hoa sen. Chế độ sáng là ao ban ngày, chế độ tối là ao đêm có trăng và đom đóm; toàn bộ app đổi sang bảng màu xanh ngọc tương ứng. Khi bật chuyển động, 3 con koi bơi, ánh sáng trôi trên mặt nước, gợn nước lan quanh hoa sen, hoa sen đung đưa và đom đóm nhấp nháy.
+![Koi Pond trong Claude desktop](themes/koi-pond/screenshot-dark.webp)
+
+## Theme
+
+| Theme | Sáng | Tối |
+| --- | --- | --- |
+| **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
 
 ## Cài đặt
 
-**Cách 1: terminal (nhanh nhất).** Mở PowerShell, Terminal hoặc cmd (không phải ô chat của Claude desktop) và chạy:
+Chạy trong PowerShell, Terminal hoặc cmd (không phải ô chat của Claude), rồi khởi động lại Claude:
 
 ```
 claude plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
 
-Lệnh này tự thêm marketplace `cuongphamthe185/looksmith` rồi cài plugin cho tài khoản của bạn (phạm vi `user`). Hoặc làm từng bước:
-
-```
-claude plugin marketplace add cuongphamthe185/looksmith
-claude plugin install looksmith@looksmith
-```
-
-**Cách 2: trong app Claude desktop.** Gõ `/plugin` trong ô chat (hoặc vào mục quản lý plugin của app), thêm marketplace bằng `cuongphamthe185/looksmith`, rồi cài **looksmith** từ danh sách. Lưu ý: gõ cả dòng `/plugin install ... --marketplace ...` vào ô chat của app desktop chỉ mở khung quản lý plugin, phần còn lại của dòng bị bỏ qua; dòng đó chỉ dùng được trong Claude Code chạy ở terminal.
-
-Cài xong, mở phiên mới (hoặc khởi động lại Claude), hàng chọn theme sẽ hiện ngay trên ô nhập.
-
-Cần bản Claude desktop có hỗ trợ theme cho mod (đã thử trên Claude desktop 5.11 cho Windows). Bản terminal và tiện ích trong trình soạn thảo không hiển thị theme.
-
-## Cập nhật
-
-Cập nhật gồm 2 lệnh, chạy trong terminal:
+**Cập nhật** (rồi khởi động lại Claude):
 
 ```
 claude plugin marketplace update looksmith
 claude plugin update looksmith
 ```
 
-Lệnh đầu chỉ tải danh sách mới nhất từ GitHub về máy, **chưa** đổi bản plugin đang dùng. Lệnh thứ hai mới đổi bản đang cài sang bản mới. Sau đó khởi động lại Claude. Kiểm tra bản đang cài bằng `claude plugin list` (dòng `Version`).
+Muốn tự cập nhật: `/plugin` → **Marketplaces** → **looksmith** → **Enable auto-update**.
 
-Muốn tự động cập nhật: gõ `/plugin`, vào **Marketplaces**, chọn **looksmith**, rồi chọn **Enable auto-update**. Mặc định tính năng này tắt với marketplace của bên thứ ba.
+## Yêu cầu
+
+- **Windows:** bật 2 mục ở Settings → Accessibility → Visual effects. Windows 11 mặc định bật sẵn.
+  - **Animation effects**: để cá bơi. Nếu đã bật mà cá vẫn đứng yên: chạy `SystemPropertiesPerformance.exe` và tick **Animate controls and elements inside windows**.
+  - **Transparency effects**: để có kính trong.
+- **macOS:** mặc định đã dùng được đủ hiệu ứng. Nếu bạn từng bật *Reduce motion* hoặc *Reduce transparency* (System Settings → Accessibility) thì tắt đi. Chưa thử trên Mac.
+
+Khi thiếu một mục, hàng chọn sẽ báo và có nút mở đúng cài đặt.
 
 ## Cách dùng
 
-- Hàng chọn trên ô nhập có 3 ô:
-  - **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
-  - **Light / dark**: *Follow OS* (theo hệ điều hành), *Always light* (luôn sáng), *Always dark* (luôn tối).
-  - **Motion**: *Still* (tĩnh) hoặc *Swim* (cá bơi).
-  - **Glass**: *Off* hoặc *Clear* (kính trong: cột hội thoại và khung ô nhập trong suốt, nhìn xuyên thấy ao).
-- Gõ `/themes` để mở cùng các lựa chọn trong một khung riêng, kèm tuỳ chọn ẩn/hiện hàng chọn.
-- Hoặc gõ nhanh: `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes glass off|clear`, `/themes bar on|off`.
+Hàng chọn trên ô nhập:
+- **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
+- **Light / dark**: theo hệ điều hành, luôn sáng hoặc luôn tối.
+- **Motion**: *Still* (tĩnh) hoặc *Swim* (chuyển động).
+- **Glass**: *Off* hoặc *Clear* (khung chat trong suốt).
 
-Lựa chọn được nhớ giữa các phiên, và mọi phiên đang mở đều làm theo lựa chọn mới nhất trong vài giây (chọn *Off* ở một phiên thì các phiên khác cũng tắt). Ở chế độ *Follow OS*, theme tự đổi trong khoảng 10 giây sau khi hệ điều hành đổi sáng/tối.
+Lựa chọn áp cho mọi phiên đang mở. Gõ `/themes` để mở các lựa chọn trong khung riêng.
 
-## Chuyển động
+**Không thấy hàng chọn?** Claude desktop chỉ chạy một số phiên cùng lúc, nên phiên lâu không dùng chưa có plugin. Chờ vài giây khi mở phiên đó, hoặc gửi một tin nhắn bất kỳ.
 
-Chuyển động do chính trình duyệt chạy (CSS/SMIL trong tranh SVG) ở tốc độ khung hình của màn hình, nên cá bơi mượt và màu theme được giữ nguyên.
+## Lưu ý
 
-Claude desktop **tự dừng nền động khi hệ điều hành yêu cầu giảm chuyển động**:
-- **Windows:** ô **"Animate controls and elements inside windows"** trong Performance Options (`SystemPropertiesPerformance.exe`). Chế độ "Adjust for best performance" tắt ô này.
-- **macOS:** mục **Reduce motion**.
+- *Swim* tốn tài nguyên: khoảng 16% CPU và 40–45% GPU trên laptop i7-1065G7 (*Still* chỉ khoảng 3%). Máy yếu nên dùng *Still*.
+- Tranh chỉ hiện sau cột hội thoại; thanh bên chỉ đổi màu.
+- Bản terminal và tiện ích trong trình soạn thảo không hiện theme.
 
-Khi bạn chọn *Swim* mà hệ điều hành đang giảm chuyển động, hàng chọn sẽ báo **"Paused"** kèm nút mở đúng cài đặt đó. Plugin không bao giờ tự đổi cài đặt hệ thống.
+## Thêm theme
 
-**Chi phí**, đo trên laptop tầm trung (i7-1065G7, card đồ hoạ tích hợp, cửa sổ 2760 × 1792): hễ có chuyển động là app vẽ lại cả cửa sổ mỗi khung hình, nên chi phí phụ thuộc độ chi tiết của cảnh chứ không phải lượng chuyển động.
-
-| Motion | Chuyển động | CPU | GPU |
-| --- | --- | --- | --- |
-| Still | không | ~3% | ~3% |
-| Swim | 3 koi, ánh sáng trôi, gợn nước, hoa sen đung đưa, đom đóm (ban đêm) | ~16% | ~40–45% |
-
-Máy yếu có thể bị lag khi bật *Swim*; khi đó hãy chọn *Still*.
-
-## Kính trong (Glass)
-
-*Clear* làm cột hội thoại và khung ô nhập trong suốt (30%, không làm mờ), để ao hiện xuyên qua. Kính cần hiệu ứng trong suốt của hệ điều hành:
-- **Windows:** Settings → Personalization → Colors → **Transparency effects**.
-- **macOS:** tắt **Reduce transparency**.
-
-Khi hiệu ứng này tắt, app tô kính thành khối đặc che mất tranh; hàng chọn sẽ báo **"Glass needs transparency"** kèm nút mở đúng cài đặt. Kèm *Swim*, kính làm GPU tăng thêm (khoảng 56% so với 40–45% khi không có kính, trên cùng chiếc laptop).
-
-## Giới hạn (đo trên Claude desktop 5.11)
-
-- Tranh nền chỉ hiện sau cột hội thoại; thanh bên và panel nhận màu của theme thay vì tranh.
-- Chuột không tương tác được với tranh nền.
-- Sau khi đổi theme, app mất vài giây mới vẽ tranh.
-- Bản terminal và tiện ích trong trình soạn thảo không hiển thị theme.
-
-## Thêm theme mới
-
-1. Đặt 2 tranh SVG tĩnh vào `themes/<id>/`, một cho chế độ sáng, một cho chế độ tối. Mỗi tranh cần có `viewBox` và `preserveAspectRatio="xMidYMid slice"`, tối đa 131.072 ký tự, không chứa script hay file bên ngoài. Nên để phần tranh nhiều chi tiết tránh khỏi vùng giữa, nơi có chữ.
-2. Thêm một mục vào `hooks/themes.ts` gồm `id`, `label`, màu gốc cho `light` và `dark`, đường dẫn 2 tranh, và (tuỳ chọn) màu `dock` cho khung chứa ô nhập theo từng chế độ. Nên chọn màu nước ở mép dưới tranh.
-3. (Tuỳ chọn) thêm `motion.swim`: một tranh SVG động cho chế độ sáng và một cho chế độ tối. Tạo chuyển động bằng CSS hoặc SMIL bên trong SVG, và tránh bộ lọc làm mờ (blur) vì nó bị vẽ lại mỗi khung hình.
-
-Bảng màu được tạo bằng `makeColors`, có kiểm tra độ tương phản. Plugin tự bỏ màu nền trang của bảng màu tối để tranh hiện ra, và bỏ qua màu `dock` nào mà app sẽ từ chối vì thiếu tương phản (kèm thông báo), thay vì làm hỏng cả bảng màu.
+Đặt 2 tranh SVG (sáng, tối) vào `themes/<id>/`, có thể thêm 2 tranh động, rồi khai báo theme trong `hooks/themes.ts`. Mỗi tranh cần `viewBox`, `preserveAspectRatio="xMidYMid slice"`, tối đa 131.072 ký tự, không script.
 
 ## Giấy phép
 

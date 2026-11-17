@@ -2,87 +2,63 @@
 
 [Tiếng Việt](README.md) · **English**
 
-Themes for the Claude desktop app. Pick a theme from a dropdown; light and dark follow your operating system (Windows, macOS, GNOME), or can be pinned to one.
+Themes for Claude desktop: pick one right above the input, light and dark follow your OS, with optional motion and clear glass.
 
-Ships with **Koi Pond**: a flat-vector koi pond with lily pads and lotus flowers. Light mode shows a sunlit day pond, dark mode a moonlit night pond with fireflies, and the whole app takes a matching teal palette. With motion on, three koi swim, the light drifts, ripples spread by the lotus, the lotus sway and the fireflies pulse.
+![Koi Pond in Claude desktop](themes/koi-pond/screenshot-dark.webp)
+
+## Themes
+
+| Theme | Light | Dark |
+| --- | --- | --- |
+| **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
 
 ## Install
 
-**Option 1: a terminal (quickest).** Open PowerShell, Terminal or cmd (not the Claude desktop chat box) and run:
+Run this in PowerShell, Terminal or cmd (not the Claude chat box), then restart Claude:
 
 ```
 claude plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
 
-This adds the `cuongphamthe185/looksmith` marketplace and installs the plugin for your user account (scope `user`). Or step by step:
-
-```
-claude plugin marketplace add cuongphamthe185/looksmith
-claude plugin install looksmith@looksmith
-```
-
-**Option 2: in the Claude desktop app.** Type `/plugin` in the chat box (or open the app's plugin manager), add the marketplace `cuongphamthe185/looksmith`, then install **looksmith** from the list. Note: typing the whole line `/plugin install ... --marketplace ...` into the desktop chat box only opens the plugin manager and ignores the rest; that line works in Claude Code running in a terminal.
-
-Then start a new session (or restart Claude) and the theme bar appears above the input.
-
-Requires a Claude desktop build that draws mod themes (tested on Claude desktop 5.11 for Windows). The terminal and editor extensions draw no themes.
-
-## Update
-
-Updating takes two commands in a terminal:
+**Update** (then restart Claude):
 
 ```
 claude plugin marketplace update looksmith
 claude plugin update looksmith
 ```
 
-The first only fetches the latest catalog from GitHub; it does **not** change the installed plugin. The second switches the installed plugin to the new version. Then restart Claude. `claude plugin list` shows the installed version (the `Version` line).
+For automatic updates: `/plugin` → **Marketplaces** → **looksmith** → **Enable auto-update**.
 
-For automatic updates: type `/plugin`, open **Marketplaces**, select **looksmith**, and choose **Enable auto-update**. It is off by default for third-party marketplaces.
+## Requirements
+
+- **Windows:** turn on two settings in Settings → Accessibility → Visual effects. Windows 11 has both on by default.
+  - **Animation effects**, for the swimming koi. If they still stand still, run `SystemPropertiesPerformance.exe` and tick **Animate controls and elements inside windows**.
+  - **Transparency effects**, for clear glass.
+- **macOS:** the full effects work by default. If you turned on *Reduce motion* or *Reduce transparency* (System Settings → Accessibility), turn it off. Not yet tested on a Mac.
+
+When a setting is missing, the bar says so and offers a button that opens it.
 
 ## Use
 
-- A bar above the input holds a **Theme** dropdown (or *Off* for the app default), a **Light / dark** dropdown (*Follow OS*, *Always light*, *Always dark*) a **Motion** dropdown (*Still*, *Swim*) and a **Glass** dropdown (*Off*, *Clear*: the conversation and the input bar turn see-through).
-- `/themes` opens the same choices in a pane, plus whether to show the bar.
-- `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes glass off|clear`, `/themes bar on|off` do the same by typing.
+The bar above the input:
+- **Theme**: a theme, or *Off* for the app default.
+- **Light / dark**: follow the OS, always light or always dark.
+- **Motion**: *Still* or *Swim*.
+- **Glass**: *Off* or *Clear* (see-through chat).
 
-The choice is remembered across sessions, and every open session follows the latest choice within a few seconds (picking *Off* in one session turns the theme off in the others too). With *Follow OS*, the theme switches within about ten seconds of the OS switching.
+The choice applies to every open session. `/themes` opens the same choices in a pane.
 
-## Motion
+**No bar?** Claude desktop runs only a few sessions at a time, so one you have not used for a while has no plugin running yet. Wait a few seconds with it open, or send any message in it.
 
-The scene's own CSS/SMIL animation plays in the browser at the display's frame rate, so the koi swim smoothly and the theme keeps its colours.
+## Notes
 
-The desktop pauses the backdrop when the OS asks apps to reduce motion. On Windows, that is **"Animate controls and elements inside windows"** in Performance Options (`SystemPropertiesPerformance.exe`), which "Adjust for best performance" turns off. On macOS, it is **Reduce motion**. While motion is chosen but paused, the bar says so and offers a button that opens that setting; the plugin never changes it itself.
-
-Cost, measured on a mid-range laptop (i7-1065G7, integrated graphics, a 2760 × 1792 window): any motion redraws the whole window every frame, so the cost follows the scene's detail, not how much moves.
-
-| Motion | What moves | CPU | GPU |
-| --- | --- | --- | --- |
-| Still | nothing | ~3% | ~3% |
-| Swim | three koi, drifting light, ripples, swaying lotus, fireflies at night | ~16% | ~40–45% |
-
-## Glass
-
-*Clear* makes the conversation column and the input bar see-through (30%, no blur), so the pond shows through. Glass needs the OS's transparency effects:
-- **Windows:** Settings → Personalization → Colors → **Transparency effects**.
-- **macOS:** turn off **Reduce transparency**.
-
-With them off, the desktop paints glass solid over the scene; the bar then says **"Glass needs transparency"** and offers a button that opens the setting. With *Swim*, glass adds GPU load (about 56% against 40–45% without glass on the same laptop).
-
-## Limits (measured on Claude desktop 5.11)
-
-- The scene shows only behind the conversation column; the sidebars take the theme's colours instead.
-- The mouse does not reach the scene.
-- After a switch the desktop takes a few seconds to paint the scene.
+- *Swim* is heavy: about 16% CPU and 40–45% GPU on an i7-1065G7 laptop (*Still* takes about 3%). On a slow machine, use *Still*.
+- The scene shows only behind the conversation column; the sidebars only change colour.
 - The terminal and editor extensions draw no themes.
 
 ## Add a theme
 
-1. Put two still SVG scenes in `themes/<id>/`, one for light and one for dark. Each needs a `viewBox` and `preserveAspectRatio="xMidYMid slice"`, at most 131,072 characters, and no scripts or external files. Keep the busiest art away from the middle, where the text sits.
-2. Add an entry to `hooks/themes.ts` with an `id`, a `label`, palette seeds for `light` and `dark`, the two scene paths, and optionally a `dock` colour per mode for the bar holding the input (pick the scene's water near its bottom edge).
-3. Optionally add `motion.swim`: an animated SVG for light and one for dark. Animate with CSS or SMIL inside the SVG, and avoid blur filters, which are redrawn every frame.
-
-The palette goes through `makeColors`, which checks contrast. The plugin leaves out the dark palette's page colour itself, so the scene shows through, and drops a `dock` colour the desktop would refuse for contrast (with a toast) rather than lose the whole palette.
+Put two SVG scenes (light, dark) in `themes/<id>/`, optionally two animated ones, and declare the theme in `hooks/themes.ts`. Each scene needs a `viewBox`, `preserveAspectRatio="xMidYMid slice"`, at most 131,072 characters, and no scripts.
 
 ## License
 

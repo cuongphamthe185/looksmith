@@ -15,7 +15,15 @@ So for every change that users install (anything under `hooks/`, `themes/`, or `
 3. Tag that commit `vX.Y.Z` and push the branch and the tag: `git push origin main vX.Y.Z`.
 4. Check that `main` on GitHub shows the new version, then run `claude plugin marketplace update looksmith` and `claude plugin update looksmith` on this machine, and confirm `claude plugin list` shows it.
 
-README-only changes may skip the bump.
+Changes to READMEs or screenshots alone may skip the bump.
+
+## Themes in the README
+
+A theme keeps its own files in `themes/<id>/`: the scenes, plus a `screenshot-<light|dark>.webp` of Claude desktop wearing it.
+
+A new theme gets a row in the theme table of both READMEs (`README.md`, `README_EN.md`). The row shows its light and dark scenes, using the animated ones when it has motion.
+
+Once there are more than about five themes, move the table to `themes/README.md`. GitHub shows that file when someone opens the `themes/` folder. The READMEs then keep one demo screenshot and a link to it.
 
 `main` is the release branch: push only working code.
 
