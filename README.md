@@ -1,54 +1,69 @@
 # Looksmith
 
-Themes for the Claude desktop app. Pick a theme from a dropdown; light and dark follow your operating system (Windows, macOS, GNOME), or can be pinned to one.
+**Tiếng Việt** · [English](README_EN.md)
 
-Ships with **Koi Pond**: a flat-vector koi pond with lily pads and lotus flowers. Light mode shows a sunlit day pond, dark mode a moonlit night pond with fireflies, and the whole app takes a matching teal palette. With motion on, three koi swim, the light drifts, ripples spread by the lotus, the lotus sway and the fireflies pulse.
+Bộ theme cho ứng dụng Claude desktop. Chọn theme từ một ô chọn; chế độ sáng/tối tự theo hệ điều hành (Windows, macOS, GNOME), hoặc cố định một chế độ.
 
-## Install
+Theme đầu tiên là **Koi Pond**: ao cá koi vẽ phẳng, có lá sen và hoa sen. Chế độ sáng là ao ban ngày, chế độ tối là ao đêm có trăng và đom đóm; toàn bộ app đổi sang bảng màu xanh ngọc tương ứng. Khi bật chuyển động, 3 con koi bơi, ánh sáng trôi trên mặt nước, gợn nước lan quanh hoa sen, hoa sen đung đưa và đom đóm nhấp nháy.
 
-In a Claude Code session, run:
+## Cài đặt
+
+Trong một phiên Claude Code, chạy:
 
 ```
 /plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
 
-Answer `y` to add the marketplace, then pick a scope. Start a new session (or restart Claude) and the theme bar appears above the input.
+Trả lời `y` để thêm marketplace, rồi chọn phạm vi cài. Mở phiên mới (hoặc khởi động lại Claude), hàng chọn theme sẽ hiện ngay trên ô nhập.
 
-Requires a Claude desktop build that draws mod themes (tested on Claude desktop 5.11 for Windows). The terminal and editor extensions draw no themes.
+Cần bản Claude desktop có hỗ trợ theme cho mod (đã thử trên Claude desktop 5.11 cho Windows). Bản terminal và tiện ích trong trình soạn thảo không hiển thị theme.
 
-## Use
+## Cách dùng
 
-- A bar above the input holds a **Theme** dropdown (or *Off* for the app default), a **Light / dark** dropdown (*Follow OS*, *Always light*, *Always dark*) and a **Motion** dropdown (*Still*, *Swim*).
-- `/themes` opens the same choices in a pane, plus whether to show the bar.
-- `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes bar on|off` do the same by typing.
+- Hàng chọn trên ô nhập có 3 ô:
+  - **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
+  - **Light / dark**: *Follow OS* (theo hệ điều hành), *Always light* (luôn sáng), *Always dark* (luôn tối).
+  - **Motion**: *Still* (tĩnh) hoặc *Swim* (cá bơi).
+- Gõ `/themes` để mở cùng các lựa chọn trong một khung riêng, kèm tuỳ chọn ẩn/hiện hàng chọn.
+- Hoặc gõ nhanh: `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes bar on|off`.
 
-The choice is remembered across sessions. With *Follow OS*, the theme switches within about ten seconds of the OS switching.
+Lựa chọn được nhớ giữa các phiên. Ở chế độ *Follow OS*, theme tự đổi trong khoảng 10 giây sau khi hệ điều hành đổi sáng/tối.
 
-## Motion
+## Chuyển động
 
-The scene's own CSS/SMIL animation plays in the browser at the display's frame rate, so the koi swim smoothly and the theme keeps its colours.
+Chuyển động do chính trình duyệt chạy (CSS/SMIL trong tranh SVG) ở tốc độ khung hình của màn hình, nên cá bơi mượt và màu theme được giữ nguyên.
 
-The desktop pauses the backdrop when the OS asks apps to reduce motion. On Windows, that is **"Animate controls and elements inside windows"** in Performance Options (`SystemPropertiesPerformance.exe`), which "Adjust for best performance" turns off. On macOS, it is **Reduce motion**. While motion is chosen but paused, the bar says so and offers a button that opens that setting; the mod never changes it itself.
+Claude desktop **tự dừng nền động khi hệ điều hành yêu cầu giảm chuyển động**:
+- **Windows:** ô **"Animate controls and elements inside windows"** trong Performance Options (`SystemPropertiesPerformance.exe`). Chế độ "Adjust for best performance" tắt ô này.
+- **macOS:** mục **Reduce motion**.
 
-Cost, measured on a mid-range laptop (i7-1065G7, integrated graphics, a 2760 × 1792 window): any motion redraws the whole window every frame, so the cost follows the scene's detail, not how much moves or how many fish there are.
+Khi bạn chọn *Swim* mà hệ điều hành đang giảm chuyển động, hàng chọn sẽ báo **"Paused"** kèm nút mở đúng cài đặt đó. Plugin không bao giờ tự đổi cài đặt hệ thống.
 
-| Motion | What moves | CPU | GPU |
+**Chi phí**, đo trên laptop tầm trung (i7-1065G7, card đồ hoạ tích hợp, cửa sổ 2760 × 1792): hễ có chuyển động là app vẽ lại cả cửa sổ mỗi khung hình, nên chi phí phụ thuộc độ chi tiết của cảnh chứ không phải lượng chuyển động.
+
+| Motion | Chuyển động | CPU | GPU |
 | --- | --- | --- | --- |
-| Still | nothing | ~3% | ~3% |
-| Swim | three koi, drifting light, ripples, swaying lotus, fireflies at night | ~16% | ~40–45% |
+| Still | không | ~3% | ~3% |
+| Swim | 3 koi, ánh sáng trôi, gợn nước, hoa sen đung đưa, đom đóm (ban đêm) | ~16% | ~40–45% |
 
-## Limits (measured on Claude desktop 5.11)
+Máy yếu có thể bị lag khi bật *Swim*; khi đó hãy chọn *Still*.
 
-- The scene shows only behind the conversation column; the sidebars take the theme's colours instead.
-- Glass (frosted panels) is not used: with the OS's transparency effects off, the desktop paints glass solid over the scene.
-- The mouse does not reach the scene.
-- After a switch the desktop takes a few seconds to paint the scene.
-- The terminal and editor extensions draw no themes.
+## Giới hạn (đo trên Claude desktop 5.11)
 
-## Add a theme
+- Tranh nền chỉ hiện sau cột hội thoại; thanh bên và panel nhận màu của theme thay vì tranh.
+- Không dùng hiệu ứng kính mờ: khi hệ điều hành tắt hiệu ứng trong suốt, app tô kính thành khối đặc che mất tranh.
+- Chuột không tương tác được với tranh nền.
+- Sau khi đổi theme, app mất vài giây mới vẽ tranh.
+- Bản terminal và tiện ích trong trình soạn thảo không hiển thị theme.
 
-1. Put two still SVG scenes in `themes/<id>/`, one for light and one for dark. Each needs a `viewBox` and `preserveAspectRatio="xMidYMid slice"`, at most 131,072 characters, and no scripts or external files. Keep the busiest art away from the middle, where the text sits.
-2. Add an entry to `hooks/themes.ts` with an `id`, a `label`, palette seeds for `light` and `dark`, the two scene paths, and optionally a `dock` colour per mode for the bar holding the input (pick the scene's water near its bottom edge).
-3. Optionally add `motion.swim`: an animated SVG for light and one for dark. Animate with CSS or SMIL inside the SVG, and avoid blur filters, which are redrawn every frame. `art/make-koi-scene.mjs` writes the koi ones (an out path ending in `.anim.svg`).
+## Thêm theme mới
 
-The palette goes through `makeColors`, which checks contrast. The mod leaves out the dark palette's page colour itself, so the scene shows through, and drops a `dock` colour the desktop would refuse for contrast (with a toast) rather than lose the whole palette.
+1. Đặt 2 tranh SVG tĩnh vào `themes/<id>/`, một cho chế độ sáng, một cho chế độ tối. Mỗi tranh cần có `viewBox` và `preserveAspectRatio="xMidYMid slice"`, tối đa 131.072 ký tự, không chứa script hay file bên ngoài. Nên để phần tranh nhiều chi tiết tránh khỏi vùng giữa, nơi có chữ.
+2. Thêm một mục vào `hooks/themes.ts` gồm `id`, `label`, màu gốc cho `light` và `dark`, đường dẫn 2 tranh, và (tuỳ chọn) màu `dock` cho khung chứa ô nhập theo từng chế độ. Nên chọn màu nước ở mép dưới tranh.
+3. (Tuỳ chọn) thêm `motion.swim`: một tranh SVG động cho chế độ sáng và một cho chế độ tối. Tạo chuyển động bằng CSS hoặc SMIL bên trong SVG, và tránh bộ lọc làm mờ (blur) vì nó bị vẽ lại mỗi khung hình.
+
+Bảng màu được tạo bằng `makeColors`, có kiểm tra độ tương phản. Plugin tự bỏ màu nền trang của bảng màu tối để tranh hiện ra, và bỏ qua màu `dock` nào mà app sẽ từ chối vì thiếu tương phản (kèm thông báo), thay vì làm hỏng cả bảng màu.
+
+## Giấy phép
+
+MIT, xem [LICENSE](LICENSE).
