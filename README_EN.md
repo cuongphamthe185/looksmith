@@ -29,9 +29,9 @@ Requires a Claude desktop build that draws mod themes (tested on Claude desktop 
 
 ## Use
 
-- A bar above the input holds a **Theme** dropdown (or *Off* for the app default), a **Light / dark** dropdown (*Follow OS*, *Always light*, *Always dark*) and a **Motion** dropdown (*Still*, *Swim*).
+- A bar above the input holds a **Theme** dropdown (or *Off* for the app default), a **Light / dark** dropdown (*Follow OS*, *Always light*, *Always dark*) a **Motion** dropdown (*Still*, *Swim*) and a **Glass** dropdown (*Off*, *Clear*: the conversation and the input bar turn see-through).
 - `/themes` opens the same choices in a pane, plus whether to show the bar.
-- `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes bar on|off` do the same by typing.
+- `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes glass off|clear`, `/themes bar on|off` do the same by typing.
 
 The choice is remembered across sessions. With *Follow OS*, the theme switches within about ten seconds of the OS switching.
 
@@ -48,10 +48,17 @@ Cost, measured on a mid-range laptop (i7-1065G7, integrated graphics, a 2760 × 
 | Still | nothing | ~3% | ~3% |
 | Swim | three koi, drifting light, ripples, swaying lotus, fireflies at night | ~16% | ~40–45% |
 
+## Glass
+
+*Clear* makes the conversation column and the input bar see-through (30%, no blur), so the pond shows through. Glass needs the OS's transparency effects:
+- **Windows:** Settings → Personalization → Colors → **Transparency effects**.
+- **macOS:** turn off **Reduce transparency**.
+
+With them off, the desktop paints glass solid over the scene; the bar then says **"Glass needs transparency"** and offers a button that opens the setting. With *Swim*, glass adds GPU load (about 56% against 40–45% without glass on the same laptop).
+
 ## Limits (measured on Claude desktop 5.11)
 
 - The scene shows only behind the conversation column; the sidebars take the theme's colours instead.
-- Glass (frosted panels) is not used: with the OS's transparency effects off, the desktop paints glass solid over the scene.
 - The mouse does not reach the scene.
 - After a switch the desktop takes a few seconds to paint the scene.
 - The terminal and editor extensions draw no themes.

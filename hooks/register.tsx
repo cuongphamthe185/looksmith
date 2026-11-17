@@ -20,8 +20,14 @@ import { THEMES } from './themes'
 type Mode = 'auto' | 'light' | 'dark'
 type Half = 'light' | 'dark'
 type Motion = 'off' | 'swim'
+type Glass = 'off' | 'clear'
 const MODES: readonly Mode[] = ['auto', 'light', 'dark']
 const MOTIONS: readonly Motion[] = ['off', 'swim']
+const GLASSES: readonly Glass[] = ['off', 'clear']
+// Clear glass: the panels (the conversation column, the input bar) let the scene show
+// through, with no blur. It needs the OS's transparency effects: with them off, the
+// desktop paints glass solid over the scene. Over a moving scene it adds GPU load.
+const CLEAR_GLASS = { blur: 0, opacity: 0.3 }
 const OFF = 'off'
 const PANE = 'theme-picker'
 const COMMAND = 'themes'
@@ -92,6 +98,7 @@ async function loadScenes($: EngineInterface): Promise<void> {
 
 let osDark: boolean | undefined
 let osReducesMotion: boolean | undefined
+let osReducesTransparency: boolean | undefined
 
 async function run($: EngineInterface, argv: string[]): Promise<{ ok: boolean; out: string }> {
   try {
@@ -103,11 +110,14 @@ async function run($: EngineInterface, argv: string[]): Promise<{ ok: boolean; o
   }
 }
 
-async function readOs($: EngineInterface): Promise<{ dark?: boolean; reduce?: boolean }> {
+type OsState = { dark?: boolean; reduce?: boolean; opaque?: boolean }
+
+async function readOs($: EngineInterface): Promise<OsState> {
   // Windows
-  const theme = await run($, ['reg', 'query', 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize', '/v', 'AppsUseLightTheme'])
+  const theme = await run($, ['reg', 'query', 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize'])
   if (theme.ok) {
     const dark = /AppsUseLightTheme\s+REG_DWORD\s+0x([0-9a-f]+)/i.exec(theme.out)
+    const transparency = /EnableTransparency\s+REG_DWORD\s+0x([0-9a-f]+)/i.exec(theme.out)
     // UserPreferencesMask byte 4, bit 0x02: "Animate controls and elements inside
     // windows", the bit Chromium reads for prefers-reduced-motion.
     const mask = await run($, ['reg', 'query', 'HKCU\\Control Panel\\Desktop', '/v', 'UserPreferencesMask'])
@@ -117,13 +127,19 @@ async function readOs($: EngineInterface): Promise<{ dark?: boolean; reduce?: bo
     return {
       dark: dark?.[1] !== undefined ? Number.parseInt(dark[1], 16) === 0 : undefined,
       reduce: byte4 !== undefined ? (byte4 & 0x02) === 0 : undefined,
+      opaque: transparency?.[1] !== undefined ? Number.parseInt(transparency[1], 16) === 0 : undefined,
     }
   }
   // macOS
   const style = await run($, ['defaults', 'read', '-g', 'AppleInterfaceStyle'])
   const motion = await run($, ['defaults', 'read', 'com.apple.universalaccess', 'reduceMotion'])
+  const transparency = await run($, ['defaults', 'read', 'com.apple.universalaccess', 'reduceTransparency'])
   if (style.ok || motion.ok || style.out !== '' || motion.out !== '') {
-    return { dark: style.ok && /dark/i.test(style.out), reduce: motion.ok ? motion.out.trim() === '1' : undefined }
+    return {
+      dark: style.ok && /dark/i.test(style.out),
+      reduce: motion.ok ? motion.out.trim() === '1' : undefined,
+      opaque: transparency.ok ? transparency.out.trim() === '1' : undefined,
+    }
   }
   // Linux (GNOME and friends)
   const scheme = await run($, ['gsettings', 'get', 'org.gnome.desktop.interface', 'color-scheme'])
@@ -143,18 +159,27 @@ async function openMotionSettings($: EngineInterface): Promise<void> {
   }
 }
 
+/** Opens the OS page where the person turns transparency effects back on. */
+async function openTransparencySettings($: EngineInterface): Promise<void> {
+  const windows = await run($, ['cmd', '/c', 'start', '', 'ms-settings:colors'])
+  if (!windows.ok) {
+    await run($, ['open', 'x-apple.systempreferences:com.apple.preference.universalaccess?Seeing_Display'])
+  }
+}
+
 // ---------- state ----------
 
 let applied = ''
 let lastResult = ''
 
-type Choice = { themeId: string; mode: Mode; bar: boolean; motion: Motion }
+type Choice = { themeId: string; mode: Mode; bar: boolean; motion: Motion; glass: Glass }
 
 async function choice($: EngineInterface): Promise<Choice> {
   const themeId = await $.store.get('theme')
   const mode = await $.store.get('mode')
   const bar = await $.store.get('bar')
   const motion = await $.store.get('motion')
+  const glass = await $.store.get('glass')
 
   return {
     themeId: typeof themeId === 'string' && (themeId === OFF || THEMES.some(t => t.id === themeId)) ? themeId : DEFAULT_THEME,
@@ -162,12 +187,13 @@ async function choice($: EngineInterface): Promise<Choice> {
     bar: bar !== false,
     // A value from an older version ("lite") falls back to swim, any other to still.
     motion: motion === 'lite' ? 'swim' : MOTIONS.includes(motion as Motion) ? (motion as Motion) : 'off',
+    glass: GLASSES.includes(glass as Glass) ? (glass as Glass) : 'off',
   }
 }
 
 /** Sets the chosen theme, or clears it when the person picked Off. */
 async function apply($: EngineInterface, opts: { force?: boolean; fromPick?: boolean } = {}): Promise<void> {
-  const { themeId, mode, motion } = await choice($)
+  const { themeId, mode, motion, glass } = await choice($)
   if (themeId === OFF) {
     // Clear only on the person's own pick: never wipe another mod's theme at start.
     if (opts.fromPick === true && applied !== OFF) {
@@ -183,18 +209,21 @@ async function apply($: EngineInterface, opts: { force?: boolean; fromPick?: boo
   const dark = mode === 'dark' || (mode === 'auto' && osDark === true)
   const half: Half = dark ? 'dark' : 'light'
   const moving = motion !== 'off' && scenes.has(sceneName(built.def.id, motion, half)) ? motion : 'off'
-  const key = `${built.def.id}|${mode}|${dark}|${moving}`
+  const key = `${built.def.id}|${mode}|${dark}|${moving}|${glass}`
   if (key === applied && opts.force !== true) return
-  const look: ThemeSetArgs = { colors: built[half], backdrop: { scene: sceneName(built.def.id, moving, half), glass: false } }
+  const look: ThemeSetArgs = {
+    colors: built[half],
+    backdrop: { scene: sceneName(built.def.id, moving, half), glass: glass === 'clear' ? CLEAR_GLASS : false },
+  }
   const set = await $.theme.set(look)
   applied = key
   lastResult = set.isDrawn
-    ? `${built.def.label} · ${half}${moving === 'off' ? '' : ' · swimming'}`
+    ? `${built.def.label} · ${half}${moving === 'off' ? '' : ' · swimming'}${glass === 'clear' ? ' · clear glass' : ''}`
     : `not drawn: ${set.reason}`
   await $.store.set('lastApply', { key, result: lastResult, osDark: osDark ?? null, osReducesMotion: osReducesMotion ?? null, at: Date.now() })
 }
 
-type Field = 'theme' | 'mode' | 'bar' | 'motion'
+type Field = 'theme' | 'mode' | 'bar' | 'motion' | 'glass'
 
 async function pick($: EngineInterface, field: Field, value: string | boolean): Promise<void> {
   await $.store.set(field, value)
@@ -204,7 +233,7 @@ async function pick($: EngineInterface, field: Field, value: string | boolean): 
   $.ui.invalidate('ui.render')
 }
 
-const ARGS = [...THEMES.map(t => t.id), OFF, ...MODES, 'motion off|swim', 'bar on|off']
+const ARGS = [...THEMES.map(t => t.id), OFF, ...MODES, 'motion off|swim', 'glass off|clear', 'bar on|off']
 
 async function runCommand($: EngineInterface, args: string): Promise<{ text: string }> {
   const arg = args.trim().toLowerCase().replace(/\s+/g, ' ')
@@ -230,6 +259,12 @@ async function runCommand($: EngineInterface, args: string): Promise<{ text: str
 
     return { text: `Motion: ${value} (${lastResult}).${paused}` }
   }
+  if (word === 'glass' && GLASSES.includes(value as Glass)) {
+    await pick($, 'glass', value as Glass)
+    const solid = value !== 'off' && osReducesTransparency === true ? ' Solid: the OS has transparency effects off.' : ''
+
+    return { text: `Glass: ${value} (${lastResult}).${solid}` }
+  }
   if (word === 'bar' && (value === 'on' || value === 'off')) {
     await pick($, 'bar', value === 'on')
 
@@ -249,6 +284,10 @@ const MOTION_OPTIONS = [
   { value: 'off', label: 'Still' },
   { value: 'swim', label: 'Swim' },
 ]
+const GLASS_OPTIONS = [
+  { value: 'off', label: 'Off' },
+  { value: 'clear', label: 'Clear' },
+]
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
@@ -262,6 +301,7 @@ export const register: Register = on => {
     const os = await readOs($)
     osDark = os.dark
     osReducesMotion = os.reduce
+    osReducesTransparency = os.opaque
     await apply($, { force: true })
     for (const note of notes) {
       $.ui.toast(`Looksmith: ${note}`)
@@ -271,8 +311,9 @@ export const register: Register = on => {
         const { themeId, mode } = await choice($)
         if (themeId === OFF) return
         const now = await readOs($)
-        const reduceChanged = now.reduce !== osReducesMotion
+        const reduceChanged = now.reduce !== osReducesMotion || now.opaque !== osReducesTransparency
         osReducesMotion = now.reduce
+        osReducesTransparency = now.opaque
         if (mode === 'auto' && now.dark !== osDark) {
           osDark = now.dark
           await apply($)
@@ -309,13 +350,14 @@ export const register: Register = on => {
     if (e.surface !== 'desktop' || e.props.hasSurvey) {
       return next(e)
     }
-    const { themeId, mode, bar, motion } = await choice($)
+    const { themeId, mode, bar, motion, glass } = await choice($)
     if (!bar) {
       return next(e)
     }
     const { Box, Select, Button, Text } = $.ui.resolve(e)
     const hasMotion = THEMES.find(t => t.id === themeId)?.motion !== undefined
     const paused = themeId !== OFF && motion !== 'off' && osReducesMotion === true
+    const solid = themeId !== OFF && glass !== 'off' && osReducesTransparency === true
 
     return (
       <Box flexDirection="row">
@@ -330,10 +372,21 @@ export const register: Register = on => {
             <Select key="bar-motion" label="Motion" options={MOTION_OPTIONS} value={motion} onSelect={value => void pick($, 'motion', value)} />
           </Box>
         )}
+        {themeId !== OFF && (
+          <Box marginLeft={2}>
+            <Select key="bar-glass" label="Glass" options={GLASS_OPTIONS} value={glass} onSelect={value => void pick($, 'glass', value)} />
+          </Box>
+        )}
         {paused && (
           <Box marginLeft={2}>
             <Text dimColor>Paused: OS reduces motion </Text>
             <Button key="bar-fix" label="Turn on…" onPress={() => void openMotionSettings($)} />
+          </Box>
+        )}
+        {solid && (
+          <Box marginLeft={2}>
+            <Text dimColor>Glass needs transparency </Text>
+            <Button key="bar-glass-fix" label="Turn on…" onPress={() => void openTransparencySettings($)} />
           </Box>
         )}
       </Box>
@@ -342,8 +395,9 @@ export const register: Register = on => {
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
     const { Box, Text, Select, Button } = $.ui.resolve(e)
-    const { themeId, mode, bar, motion } = await choice($)
+    const { themeId, mode, bar, motion, glass } = await choice($)
     const paused = themeId !== OFF && motion !== 'off' && osReducesMotion === true
+    const solid = themeId !== OFF && glass !== 'off' && osReducesTransparency === true
 
     return (
       <Box flexDirection="column">
@@ -367,6 +421,24 @@ export const register: Register = on => {
               elements inside windows" in Performance Options; on macOS, turn off Reduce motion.
             </Text>
             <Button key="fix" label="Open the setting" onPress={() => void openMotionSettings($)} />
+          </Box>
+        )}
+        <Box marginTop={1}>
+          <Select key="glass" label="Glass" options={GLASS_OPTIONS} value={glass} onSelect={value => void pick($, 'glass', value)} />
+        </Box>
+        <Box marginTop={1}>
+          <Text dimColor>
+            Clear glass lets the pond show through the conversation and the input bar. With Swim it adds GPU load
+            (about 56% GPU against 40-45% without glass on a mid-range laptop).
+          </Text>
+        </Box>
+        {solid && (
+          <Box marginTop={1} flexDirection="column">
+            <Text>
+              Glass is solid because the OS has transparency effects off. On Windows, turn on Transparency effects
+              in Personalization, Colors; on macOS, turn off Reduce transparency.
+            </Text>
+            <Button key="glass-fix" label="Open the setting" onPress={() => void openTransparencySettings($)} />
           </Box>
         )}
         <Box marginTop={1}>

@@ -33,8 +33,9 @@ Cần bản Claude desktop có hỗ trợ theme cho mod (đã thử trên Claude
   - **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
   - **Light / dark**: *Follow OS* (theo hệ điều hành), *Always light* (luôn sáng), *Always dark* (luôn tối).
   - **Motion**: *Still* (tĩnh) hoặc *Swim* (cá bơi).
+  - **Glass**: *Off* hoặc *Clear* (kính trong: cột hội thoại và khung ô nhập trong suốt, nhìn xuyên thấy ao).
 - Gõ `/themes` để mở cùng các lựa chọn trong một khung riêng, kèm tuỳ chọn ẩn/hiện hàng chọn.
-- Hoặc gõ nhanh: `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes bar on|off`.
+- Hoặc gõ nhanh: `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes glass off|clear`, `/themes bar on|off`.
 
 Lựa chọn được nhớ giữa các phiên. Ở chế độ *Follow OS*, theme tự đổi trong khoảng 10 giây sau khi hệ điều hành đổi sáng/tối.
 
@@ -57,10 +58,17 @@ Khi bạn chọn *Swim* mà hệ điều hành đang giảm chuyển động, h�
 
 Máy yếu có thể bị lag khi bật *Swim*; khi đó hãy chọn *Still*.
 
+## Kính trong (Glass)
+
+*Clear* làm cột hội thoại và khung ô nhập trong suốt (30%, không làm mờ), để ao hiện xuyên qua. Kính cần hiệu ứng trong suốt của hệ điều hành:
+- **Windows:** Settings → Personalization → Colors → **Transparency effects**.
+- **macOS:** tắt **Reduce transparency**.
+
+Khi hiệu ứng này tắt, app tô kính thành khối đặc che mất tranh; hàng chọn sẽ báo **"Glass needs transparency"** kèm nút mở đúng cài đặt. Kèm *Swim*, kính làm GPU tăng thêm (khoảng 56% so với 40–45% khi không có kính, trên cùng chiếc laptop).
+
 ## Giới hạn (đo trên Claude desktop 5.11)
 
 - Tranh nền chỉ hiện sau cột hội thoại; thanh bên và panel nhận màu của theme thay vì tranh.
-- Không dùng hiệu ứng kính mờ: khi hệ điều hành tắt hiệu ứng trong suốt, app tô kính thành khối đặc che mất tranh.
 - Chuột không tương tác được với tranh nền.
 - Sau khi đổi theme, app mất vài giây mới vẽ tranh.
 - Bản terminal và tiện ích trong trình soạn thảo không hiển thị theme.
