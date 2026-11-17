@@ -31,7 +31,8 @@ const CLEAR_GLASS = { blur: 0, opacity: 0.3 }
 const OFF = 'off'
 const PANE = 'theme-picker'
 const COMMAND = 'themes'
-const OS_POLL_MS = 10_000
+const OS_POLL_MS = 9_000
+const SYNC_MS = 3_000
 const SCENE_PREFIX = 'tg-'
 
 // Measured on Claude desktop 5.11, with one half of a palette sent at a time (a
@@ -191,12 +192,22 @@ async function choice($: EngineInterface): Promise<Choice> {
   }
 }
 
-/** Sets the chosen theme, or clears it when the person picked Off. */
-async function apply($: EngineInterface, opts: { force?: boolean; fromPick?: boolean } = {}): Promise<void> {
+// Applies run one at a time: a pick and the sync tick may both ask at once.
+let queue: Promise<void> = Promise.resolve()
+
+/** Sets the chosen theme, or clears it when the choice is Off. */
+function apply($: EngineInterface, opts: { force?: boolean } = {}): Promise<void> {
+  queue = queue.then(() => applyNow($, opts)).catch(() => undefined)
+
+  return queue
+}
+
+async function applyNow($: EngineInterface, opts: { force?: boolean }): Promise<void> {
   const { themeId, mode, motion, glass } = await choice($)
   if (themeId === OFF) {
-    // Clear only on the person's own pick: never wipe another mod's theme at start.
-    if (opts.fromPick === true && applied !== OFF) {
+    // Clear only a theme this session set itself (applied holds its key), so a
+    // session that starts with Off never wipes another mod's theme.
+    if (applied !== '' && applied !== OFF) {
       await $.theme.clear()
     }
     applied = OFF
@@ -228,7 +239,7 @@ type Field = 'theme' | 'mode' | 'bar' | 'motion' | 'glass'
 async function pick($: EngineInterface, field: Field, value: string | boolean): Promise<void> {
   await $.store.set(field, value)
   if (field !== 'bar') {
-    await apply($, { fromPick: true })
+    await apply($)
   }
   $.ui.invalidate('ui.render')
 }
@@ -306,20 +317,32 @@ export const register: Register = on => {
     for (const note of notes) {
       $.ui.toast(`Looksmith: ${note}`)
     }
-    $.clock.every(OS_POLL_MS, () => {
+    // Every session follows the saved choice: a pick in one session (Off included)
+    // reaches the others within SYNC_MS, so no session keeps a moving pond the
+    // person turned off elsewhere. The OS is read less often (it spawns processes)
+    // and only while a theme is on.
+    let ticks = 0
+    let busy = false
+    $.clock.every(SYNC_MS, () => {
+      if (busy) return
+      busy = true
       void (async () => {
-        const { themeId, mode } = await choice($)
-        if (themeId === OFF) return
-        const now = await readOs($)
-        const reduceChanged = now.reduce !== osReducesMotion || now.opaque !== osReducesTransparency
-        osReducesMotion = now.reduce
-        osReducesTransparency = now.opaque
-        if (mode === 'auto' && now.dark !== osDark) {
-          osDark = now.dark
+        try {
+          ticks++
+          const before = applied
+          const { themeId } = await choice($)
+          if (themeId !== OFF && ticks % Math.round(OS_POLL_MS / SYNC_MS) === 0) {
+            const now = await readOs($)
+            const changed = now.reduce !== osReducesMotion || now.opaque !== osReducesTransparency
+            osReducesMotion = now.reduce
+            osReducesTransparency = now.opaque
+            osDark = now.dark
+            if (changed) $.ui.invalidate('ui.render')
+          }
           await apply($)
-        }
-        if (reduceChanged) {
-          $.ui.invalidate('ui.render')
+          if (applied !== before) $.ui.invalidate('ui.render')
+        } finally {
+          busy = false
         }
       })()
     })

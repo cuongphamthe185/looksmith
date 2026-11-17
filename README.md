@@ -37,7 +37,7 @@ Cần bản Claude desktop có hỗ trợ theme cho mod (đã thử trên Claude
 - Gõ `/themes` để mở cùng các lựa chọn trong một khung riêng, kèm tuỳ chọn ẩn/hiện hàng chọn.
 - Hoặc gõ nhanh: `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes glass off|clear`, `/themes bar on|off`.
 
-Lựa chọn được nhớ giữa các phiên. Ở chế độ *Follow OS*, theme tự đổi trong khoảng 10 giây sau khi hệ điều hành đổi sáng/tối.
+Lựa chọn được nhớ giữa các phiên, và mọi phiên đang mở đều làm theo lựa chọn mới nhất trong vài giây (chọn *Off* ở một phiên thì các phiên khác cũng tắt). Ở chế độ *Follow OS*, theme tự đổi trong khoảng 10 giây sau khi hệ điều hành đổi sáng/tối.
 
 ## Chuyển động
 

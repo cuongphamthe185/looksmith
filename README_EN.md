@@ -33,7 +33,7 @@ Requires a Claude desktop build that draws mod themes (tested on Claude desktop 
 - `/themes` opens the same choices in a pane, plus whether to show the bar.
 - `/themes koi-pond`, `/themes off`, `/themes auto|light|dark`, `/themes motion off|swim`, `/themes glass off|clear`, `/themes bar on|off` do the same by typing.
 
-The choice is remembered across sessions. With *Follow OS*, the theme switches within about ten seconds of the OS switching.
+The choice is remembered across sessions, and every open session follows the latest choice within a few seconds (picking *Off* in one session turns the theme off in the others too). With *Follow OS*, the theme switches within about ten seconds of the OS switching.
 
 ## Motion
 
