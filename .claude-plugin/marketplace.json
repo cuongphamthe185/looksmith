@@ -1,0 +1,6 @@
+{
+  "name": "looksmith",
+  "owner": { "name": "cuongphamthe185" },
+  "description": "Looksmith: themes for Claude desktop, starting with Koi Pond.",
+  "plugins": [{ "name": "looksmith", "source": "./" }]
+}
