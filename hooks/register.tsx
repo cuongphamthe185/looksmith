@@ -71,8 +71,9 @@ const DEFAULT_THEME = THEMES[0]?.id ?? OFF
 
 // ---------- scenes ----------
 
-// Scene name -> SVG text, read from the plugin folder at start.
+// Scene name -> SVG text, read from the plugin folder at start, and what it shows.
 const scenes = new Map<string, string>()
+const sceneAlt = new Map<string, string>()
 const sceneName = (id: string, motion: Motion, half: Half) =>
   `${SCENE_PREFIX}${id}-${motion === 'off' ? 'still' : motion}-${half}`
 
@@ -87,6 +88,7 @@ async function loadScenes($: EngineInterface): Promise<void> {
         if (rel === undefined) continue
         try {
           scenes.set(sceneName(def.id, motion, half), await $.fs.read(`${$.plugin.root}/${rel}`))
+          sceneAlt.set(sceneName(def.id, motion, half), def.alt)
         } catch (error) {
           notes.push(`cannot read ${rel}: ${String(error)}`)
         }
@@ -229,7 +231,7 @@ async function applyNow($: EngineInterface, opts: { force?: boolean }): Promise<
   const set = await $.theme.set(look)
   applied = key
   lastResult = set.isDrawn
-    ? `${built.def.label} · ${half}${moving === 'off' ? '' : ' · swimming'}${glass === 'clear' ? ' · clear glass' : ''}`
+    ? `${built.def.label} · ${half}${moving === 'off' ? '' : ` · ${built.def.motion?.status ?? 'moving'}`}${glass === 'clear' ? ' · clear glass' : ''}`
     : `not drawn: ${set.reason}`
   await $.store.set('lastApply', { key, result: lastResult, osDark: osDark ?? null, osReducesMotion: osReducesMotion ?? null, at: Date.now() })
 }
@@ -291,9 +293,11 @@ const modeOptions = () => [
   { value: 'light', label: 'Always light' },
   { value: 'dark', label: 'Always dark' },
 ]
-const MOTION_OPTIONS = [
+// The moving choice is stored as `swim` for every theme; each theme names it.
+const themeMotion = (themeId: string) => THEMES.find(t => t.id === themeId)?.motion
+const motionOptions = (themeId: string) => [
   { value: 'off', label: 'Still' },
-  { value: 'swim', label: 'Swim' },
+  { value: 'swim', label: themeMotion(themeId)?.label ?? 'Move' },
 ]
 const GLASS_OPTIONS = [
   { value: 'off', label: 'Off' },
@@ -370,7 +374,7 @@ export const register: Register = on => {
     }
     const { Svg } = $.ui.resolve(e)
 
-    return <Svg source={source} alt="A koi pond with lily pads and lotus flowers" />
+    return <Svg source={source} alt={sceneAlt.get(e.props.scene) ?? 'A theme scene'} />
   })
 
   // The bar above the input: the dropdowns, always at hand on desktop.
@@ -397,7 +401,7 @@ export const register: Register = on => {
         )}
         {themeId !== OFF && hasMotion && (
           <Box marginLeft={2}>
-            <Select key="bar-motion" label="Motion" options={MOTION_OPTIONS} value={motion} onSelect={value => void pick($, 'motion', value)} />
+            <Select key="bar-motion" label="Motion" options={motionOptions(themeId)} value={motion} onSelect={value => void pick($, 'motion', value)} />
           </Box>
         )}
         {themeId !== OFF && (
@@ -434,18 +438,15 @@ export const register: Register = on => {
           <Select key="mode" label="Light / dark" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
         </Box>
         <Box marginTop={1}>
-          <Select key="motion" label="Motion" options={MOTION_OPTIONS} value={motion} onSelect={value => void pick($, 'motion', value)} />
+          <Select key="motion" label="Motion" options={motionOptions(themeId)} value={motion} onSelect={value => void pick($, 'motion', value)} />
         </Box>
         <Box marginTop={1}>
-          <Text dimColor>
-            Swim plays the pond: koi swim, light drifts, ripples spread, lotus sway. It redraws the window every frame:
-            on a mid-range laptop it took about 16% CPU and 40-45% GPU, against about 3% for Still.
-          </Text>
+          <Text dimColor>{themeMotion(themeId)?.about ?? 'This theme has no motion: it stays still.'}</Text>
         </Box>
         {paused && (
           <Box marginTop={1} flexDirection="column">
             <Text>
-              The pond is still because the OS asks apps to reduce motion. On Windows, tick "Animate controls and
+              The scene is still because the OS asks apps to reduce motion. On Windows, tick "Animate controls and
               elements inside windows" in Performance Options; on macOS, turn off Reduce motion.
             </Text>
             <Button key="fix" label="Open the setting" onPress={() => void openMotionSettings($)} />
@@ -456,7 +457,7 @@ export const register: Register = on => {
         </Box>
         <Box marginTop={1}>
           <Text dimColor>
-            Clear glass lets the pond show through the conversation and the input bar. With Swim it adds GPU load
+            Clear glass lets the scene show through the conversation and the input bar. With motion it adds GPU load
             (about 56% GPU against 40-45% without glass on a mid-range laptop).
           </Text>
         </Box>
