@@ -75,49 +75,6 @@ export const THEMES: readonly ThemeDef[] = [
     },
   },
   {
-    id: 'eva-01',
-    label: 'EVA-01',
-    alt: 'A purple mecha head with a horn and glowing eyes over a city skyline',
-    palette: {
-      label: 'EVA-01',
-      roles: { accent: '#7b4fc0', danger: '#d0342c', success: '#5f9e2e', warning: '#d99a1c', pro: '#615aaa' },
-      light: {
-        gray: {
-          anchors: {
-            'surface-0': '#e7e0f4',
-            'surface-1': '#efe9f8',
-            'surface-2': '#f6f2fb',
-            'text-primary': '#1d1028',
-            'text-secondary': '#3c2a4f',
-            'text-muted': '#5a4870',
-          },
-        },
-      },
-      dark: {
-        gray: {
-          anchors: {
-            'surface-0': '#140b19',
-            'surface-1': '#1b0f21',
-            'surface-2': '#22132a',
-            'surface-3': '#291833',
-            'text-primary': '#f1eaf8',
-            'text-secondary': '#d0c3e0',
-            'text-muted': '#a898bc',
-          },
-        },
-      },
-    },
-    backdrop: { light: 'themes/eva-01/day.svg', dark: 'themes/eva-01/night.svg' },
-    dock: { light: '#b9addf', dark: '#1b0d22' },
-    motion: {
-      swim: { light: 'themes/eva-01/blink-day.svg', dark: 'themes/eva-01/blink-night.svg' },
-      label: 'Blink',
-      status: 'eyes blinking',
-      about:
-        'Blink lights the eyes: every 5 seconds they flicker off, then flare back with a halo and a streak of light. Between blinks nothing animates, so it should cost less than the koi; not measured yet.',
-    },
-  },
-  {
     // Five colours only: white, yellow #ecc41e, purple #6b4f93, navy #0c1442,
     // dark purple #42305a, and tints of them.
     id: 'eva-sticker',

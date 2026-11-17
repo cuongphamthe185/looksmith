@@ -11,7 +11,6 @@ Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối th
 | Theme | Sáng | Tối |
 | --- | --- | --- |
 | **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
-| **EVA-01**: đầu mecha tím, sừng và đôi mắt phát sáng trên đường chân trời; mắt chớp | <img src="themes/eva-01/blink-day.svg" width="320" alt="EVA-01, ban ngày"> | <img src="themes/eva-01/blink-night.svg" width="320" alt="EVA-01, ban đêm"> |
 | **EVA Sticker**: sticker phẳng 5 màu, đầu mecha tím, mây vàng, chữ 天使; 4 mắt chớp | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, ban ngày"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, ban đêm"> |
 
 ## Cài đặt
