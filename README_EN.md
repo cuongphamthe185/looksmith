@@ -27,6 +27,19 @@ Then start a new session (or restart Claude) and the theme bar appears above the
 
 Requires a Claude desktop build that draws mod themes (tested on Claude desktop 5.11 for Windows). The terminal and editor extensions draw no themes.
 
+## Update
+
+Updating takes two commands in a terminal:
+
+```
+claude plugin marketplace update looksmith
+claude plugin update looksmith
+```
+
+The first only fetches the latest catalog from GitHub; it does **not** change the installed plugin. The second switches the installed plugin to the new version. Then restart Claude. `claude plugin list` shows the installed version (the `Version` line).
+
+For automatic updates: type `/plugin`, open **Marketplaces**, select **looksmith**, and choose **Enable auto-update**. It is off by default for third-party marketplaces.
+
 ## Use
 
 - A bar above the input holds a **Theme** dropdown (or *Off* for the app default), a **Light / dark** dropdown (*Follow OS*, *Always light*, *Always dark*) a **Motion** dropdown (*Still*, *Swim*) and a **Glass** dropdown (*Off*, *Clear*: the conversation and the input bar turn see-through).

@@ -27,6 +27,19 @@ Cài xong, mở phiên mới (hoặc khởi động lại Claude), hàng chọn 
 
 Cần bản Claude desktop có hỗ trợ theme cho mod (đã thử trên Claude desktop 5.11 cho Windows). Bản terminal và tiện ích trong trình soạn thảo không hiển thị theme.
 
+## Cập nhật
+
+Cập nhật gồm 2 lệnh, chạy trong terminal:
+
+```
+claude plugin marketplace update looksmith
+claude plugin update looksmith
+```
+
+Lệnh đầu chỉ tải danh sách mới nhất từ GitHub về máy, **chưa** đổi bản plugin đang dùng. Lệnh thứ hai mới đổi bản đang cài sang bản mới. Sau đó khởi động lại Claude. Kiểm tra bản đang cài bằng `claude plugin list` (dòng `Version`).
+
+Muốn tự động cập nhật: gõ `/plugin`, vào **Marketplaces**, chọn **looksmith**, rồi chọn **Enable auto-update**. Mặc định tính năng này tắt với marketplace của bên thứ ba.
+
 ## Cách dùng
 
 - Hàng chọn trên ô nhập có 3 ô:
