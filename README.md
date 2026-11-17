@@ -14,11 +14,17 @@ Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối th
 
 ## Cài đặt
 
-Chạy trong PowerShell, Terminal hoặc cmd (không phải ô chat của Claude), rồi khởi động lại Claude:
+Các lệnh bên dưới cần **Claude Code bản dòng lệnh** (lệnh `claude`). Claude desktop không kèm lệnh này. Nếu chưa có, cài theo một trong hai cách, rồi mở terminal mới và kiểm tra bằng `claude --version`:
+- **npm** (cần Node.js 22 trở lên): `npm install -g @anthropic-ai/claude-code@latest`
+- **Bộ cài chính thức**: macOS `curl -fsSL https://claude.ai/install.sh | bash`, Windows PowerShell `irm https://claude.ai/install.ps1 | iex`
+
+Sau đó chạy trong terminal (Windows: PowerShell hoặc cmd; macOS: Terminal), không phải ô chat của Claude, rồi khởi động lại Claude:
 
 ```
 claude plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
+
+Không muốn cài lệnh `claude`: gõ `/plugin` trong ô chat của Claude desktop, thêm marketplace `cuongphamthe185/looksmith`, rồi cài **looksmith**.
 
 **Cập nhật** (rồi khởi động lại Claude):
 
@@ -28,6 +34,15 @@ claude plugin update looksmith
 ```
 
 Muốn tự cập nhật: `/plugin` → **Marketplaces** → **looksmith** → **Enable auto-update**.
+
+**Gỡ cài đặt** (rồi khởi động lại Claude, theme biến mất):
+
+```
+claude plugin uninstall looksmith
+claude plugin marketplace remove looksmith
+```
+
+Muốn xoá sạch, xoá thêm file lựa chọn đã lưu: `~/.claude/plugins/store/looksmith_looksmith-*.json`.
 
 ## Yêu cầu
 

@@ -14,11 +14,17 @@ Themes for Claude desktop: pick one right above the input, light and dark follow
 
 ## Install
 
-Run this in PowerShell, Terminal or cmd (not the Claude chat box), then restart Claude:
+The commands below need **Claude Code on the command line** (the `claude` command), which Claude desktop does not include. If you don't have it, install it one of two ways, then open a new terminal and check with `claude --version`:
+- **npm** (needs Node.js 22 or later): `npm install -g @anthropic-ai/claude-code@latest`
+- **Official installer**: macOS `curl -fsSL https://claude.ai/install.sh | bash`, Windows PowerShell `irm https://claude.ai/install.ps1 | iex`
+
+Then run this in a terminal (Windows: PowerShell or cmd; macOS: Terminal), not the Claude chat box, then restart Claude:
 
 ```
 claude plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
+
+Rather not install the `claude` command? Type `/plugin` in the Claude desktop chat box, add the marketplace `cuongphamthe185/looksmith`, then install **looksmith**.
 
 **Update** (then restart Claude):
 
@@ -28,6 +34,15 @@ claude plugin update looksmith
 ```
 
 For automatic updates: `/plugin` → **Marketplaces** → **looksmith** → **Enable auto-update**.
+
+**Uninstall** (then restart Claude; the theme goes away):
+
+```
+claude plugin uninstall looksmith
+claude plugin marketplace remove looksmith
+```
+
+To remove every trace, also delete the saved choice: `~/.claude/plugins/store/looksmith_looksmith-*.json`.
 
 ## Requirements
 
