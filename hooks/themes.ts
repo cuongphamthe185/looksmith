@@ -116,7 +116,7 @@ export const THEMES: readonly ThemeDef[] = [
       label: 'Blink',
       status: 'eyes blinking',
       about:
-        'Blink closes the four eyes one after another every 6 seconds. Nothing else moves; cost not measured yet.',
+        'Blink keeps the four eyes alive on a 20-second loop: they blink alone, twice or in a ripple, and every 20 seconds the visor flickers, the eyes snap shut together and open with yellow irises, a scan line runs down them and the visor flares with a turning star. Only 11 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (expect it near Swim on Koi Pond).',
     },
   },
 ]

@@ -1,6 +1,6 @@
 {
   "name": "looksmith",
-  "version": "0.4.0-dev.2",
+  "version": "0.4.0-dev.3",
   "description": "A gallery of themes for Claude desktop: pick one from a dropdown, light and dark follow your OS, with optional motion. Ships with Koi Pond and EVA Sticker.",
   "author": { "name": "cuongphamthe185" },
   "repository": "https://github.com/cuongphamthe185/looksmith",
