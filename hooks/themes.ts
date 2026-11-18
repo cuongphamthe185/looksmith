@@ -86,9 +86,11 @@ export const THEMES: readonly ThemeDef[] = [
       light: {
         gray: {
           anchors: {
-            'surface-0': '#e4dfec',
-            'surface-1': '#eae6f0',
-            'surface-2': '#f8f6fa',
+            // half a step greyer than the near-white of 0.4.0-dev.6, to sit with the
+            // grey-lavender day scene; checkColors reports no new pair below its bar
+            'surface-0': '#dfdae7',
+            'surface-1': '#e5e1eb',
+            'surface-2': '#eeebf2',
             'text-primary': '#0c1442',
             'text-secondary': '#2c2550',
             'text-muted': '#4f4670',
@@ -116,7 +118,7 @@ export const THEMES: readonly ThemeDef[] = [
       label: 'Blink',
       status: 'eyes blinking',
       about:
-        'Blink keeps the four eyes alive on a 10-second loop: they blink alone, twice or in a ripple, and every 10 seconds the visor flickers, the eyes snap shut together and open with yellow irises, a scan line runs down them and the visor flares with a turning star. Only 11 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (expect it near Swim on Koi Pond).',
+        'Blink keeps the four eyes alive on a 10-second loop: they blink alone, twice or in a ripple, and every 10 seconds the visor flickers, the eyes snap shut together and open with yellow irises, a scan line runs down them and the visor flares with a turning star. Only 11 small parts move, but any motion redraws the window every frame: measured on a laptop with integrated graphics and clear glass, about 55% of one CPU core in the GPU process and 70% GPU, against near idle for Still.',
     },
   },
 ]
