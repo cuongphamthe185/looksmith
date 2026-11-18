@@ -74,10 +74,6 @@ The choice applies to every open session. `/themes` opens the same choices in a 
 - The scene shows only behind the conversation column; the sidebars only change colour.
 - The terminal and editor extensions draw no themes.
 
-## Add a theme
-
-Put two SVG scenes (light, dark) in `themes/<id>/`, optionally two animated ones, and declare the theme in `hooks/themes.ts`. Each scene needs a `viewBox`, `preserveAspectRatio="xMidYMid slice"`, at most 131,072 characters, and no scripts.
-
 ## License
 
 MIT, see [LICENSE](LICENSE).

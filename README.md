@@ -74,10 +74,6 @@ Lựa chọn áp cho mọi phiên đang mở. Gõ `/themes` để mở các lự
 - Tranh chỉ hiện sau cột hội thoại; thanh bên chỉ đổi màu.
 - Bản terminal và tiện ích trong trình soạn thảo không hiện theme.
 
-## Thêm theme
-
-Đặt 2 tranh SVG (sáng, tối) vào `themes/<id>/`, có thể thêm 2 tranh động, rồi khai báo theme trong `hooks/themes.ts`. Mỗi tranh cần `viewBox`, `preserveAspectRatio="xMidYMid slice"`, tối đa 131.072 ký tự, không script.
-
 ## Giấy phép
 
 MIT, xem [LICENSE](LICENSE).
