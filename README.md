@@ -1,79 +1,79 @@
 # Looksmith
 
-**Tiếng Việt** · [English](README_EN.md)
+**English** · [Tiếng Việt](README_VI.md)
 
-Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối theo hệ điều hành, có chuyển động và kính trong.
+Themes for Claude desktop: pick one right above the input, light and dark follow your OS, with optional motion and clear glass.
 
-![Koi Pond trong Claude desktop](themes/koi-pond/screenshot-dark.webp)
+![Koi Pond in Claude desktop](themes/koi-pond/screenshot-dark.webp)
 
-## Theme
+## Themes
 
-| Theme | Sáng | Tối |
+| Theme | Light | Dark |
 | --- | --- | --- |
-| **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
-| **EVA Sticker**: sticker phẳng 5 màu, đầu mecha tím, mây vàng, chữ 天使; 4 mắt chớp | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, ban ngày"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, ban đêm"> |
+| **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
+| **EVA Sticker**: flat five-colour sticker, a purple mecha head, yellow clouds, the word 天使; four eyes blink | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, day"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, night"> |
 
-## Cài đặt
+## Install
 
-Các lệnh bên dưới cần **Claude Code bản dòng lệnh** (lệnh `claude`). Claude desktop không kèm lệnh này. Nếu chưa có, cài theo một trong hai cách, rồi mở terminal mới và kiểm tra bằng `claude --version`:
-- **npm** (cần Node.js 22 trở lên): `npm install -g @anthropic-ai/claude-code@latest`
-- **Bộ cài chính thức**: macOS `curl -fsSL https://claude.ai/install.sh | bash`, Windows PowerShell `irm https://claude.ai/install.ps1 | iex`
+The commands below need **Claude Code on the command line** (the `claude` command), which Claude desktop does not include. If you don't have it, install it one of two ways, then open a new terminal and check with `claude --version`:
+- **npm** (needs Node.js 22 or later): `npm install -g @anthropic-ai/claude-code@latest`
+- **Official installer**: macOS `curl -fsSL https://claude.ai/install.sh | bash`, Windows PowerShell `irm https://claude.ai/install.ps1 | iex`
 
-Sau đó chạy trong terminal (Windows: PowerShell hoặc cmd; macOS: Terminal), không phải ô chat của Claude, rồi khởi động lại Claude:
+Then run this in a terminal (Windows: PowerShell or cmd; macOS: Terminal), not the Claude chat box, then restart Claude:
 
 ```
 claude plugin install looksmith --marketplace cuongphamthe185/looksmith
 ```
 
-Không muốn cài lệnh `claude`: gõ `/plugin` trong ô chat của Claude desktop, thêm marketplace `cuongphamthe185/looksmith`, rồi cài **looksmith**.
+Rather not install the `claude` command? Type `/plugin` in the Claude desktop chat box, add the marketplace `cuongphamthe185/looksmith`, then install **looksmith**.
 
-**Cập nhật** (rồi khởi động lại Claude):
+**Update** (then restart Claude):
 
 ```
 claude plugin marketplace update looksmith
 claude plugin update looksmith
 ```
 
-Muốn tự cập nhật: `/plugin` → **Marketplaces** → **looksmith** → **Enable auto-update**.
+For automatic updates: `/plugin` → **Marketplaces** → **looksmith** → **Enable auto-update**.
 
-**Gỡ cài đặt** (rồi khởi động lại Claude, theme biến mất):
+**Uninstall** (then restart Claude; the theme goes away):
 
 ```
 claude plugin uninstall looksmith
 claude plugin marketplace remove looksmith
 ```
 
-Muốn xoá sạch, xoá thêm file lựa chọn đã lưu: `~/.claude/plugins/store/looksmith_looksmith-*.json`.
+To remove every trace, also delete the saved choice: `~/.claude/plugins/store/looksmith_looksmith-*.json`.
 
-## Yêu cầu
+## Requirements
 
-- **Windows:** bật 2 mục ở Settings → Accessibility → Visual effects. Windows 11 mặc định bật sẵn.
-  - **Animation effects**: để cá bơi. Nếu đã bật mà cá vẫn đứng yên: chạy `SystemPropertiesPerformance.exe` và tick **Animate controls and elements inside windows**.
-  - **Transparency effects**: để có kính trong.
-- **macOS:** mặc định đã dùng được đủ hiệu ứng. Nếu bạn từng bật *Reduce motion* hoặc *Reduce transparency* (System Settings → Accessibility) thì tắt đi. Chưa thử trên Mac.
+- **Windows:** turn on two settings in Settings → Accessibility → Visual effects. Windows 11 has both on by default.
+  - **Animation effects**, for the swimming koi. If they still stand still, run `SystemPropertiesPerformance.exe` and tick **Animate controls and elements inside windows**.
+  - **Transparency effects**, for clear glass.
+- **macOS:** the full effects work by default. If you turned on *Reduce motion* or *Reduce transparency* (System Settings → Accessibility), turn it off. Not yet tested on a Mac.
 
-Khi thiếu một mục, hàng chọn sẽ báo và có nút mở đúng cài đặt.
+When a setting is missing, the bar says so and offers a button that opens it.
 
-## Cách dùng
+## Use
 
-Hàng chọn trên ô nhập:
-- **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
-- **Light / dark**: theo hệ điều hành, luôn sáng hoặc luôn tối.
-- **Motion**: *Still* (tĩnh) hoặc chuyển động (*Swim* với Koi Pond, *Blink* với EVA Sticker).
-- **Glass**: *Off* hoặc *Clear* (khung chat trong suốt).
+The bar above the input:
+- **Theme**: a theme, or *Off* for the app default.
+- **Light / dark**: follow the OS, always light or always dark.
+- **Motion**: *Still*, or moving (*Swim* on Koi Pond, *Blink* on EVA Sticker).
+- **Glass**: *Off* or *Clear* (see-through chat).
 
-Lựa chọn áp cho mọi phiên đang mở. Gõ `/themes` để mở các lựa chọn trong khung riêng.
+The choice applies to every open session. `/themes` opens the same choices in a pane.
 
-**Không thấy hàng chọn?** Theme và hàng chọn do plugin vẽ, mà plugin chỉ chạy bên trong một phiên chat đang hoạt động. Đây là giới hạn của Claude desktop: chưa có phiên thì plugin không chạy được và không hiện gì.
-- **Mới cài, chưa có phiên nào:** mở tab Code, tạo phiên mới và gửi một tin nhắn bất kỳ (ví dụ "hi"). Hàng chọn sẽ hiện trên ô nhập, và theme đã chọn sẽ áp cho các phiên mở sau.
-- **Phiên lâu không dùng:** Claude desktop chỉ chạy một số phiên cùng lúc. Chờ vài giây khi mở phiên đó, hoặc gửi một tin nhắn bất kỳ.
+**No bar?** The theme and the bar are drawn by the plugin, and the plugin runs only inside an active chat session. This is a Claude desktop limit: with no session, the plugin cannot run or show anything.
+- **Just installed, no session yet:** open the Code tab, start a new session and send any message (for example "hi"). The bar appears above the input, and the theme you pick applies to the sessions you open after.
+- **A session you have not used for a while:** Claude desktop runs only a few sessions at a time. Wait a few seconds with it open, or send any message in it.
 
-## Lưu ý
+## Notes
 
-- *Swim* tốn tài nguyên: khoảng 16% CPU và 40–45% GPU trên laptop i7-1065G7 (*Still* chỉ khoảng 3%). Máy yếu nên dùng *Still*.
-- Tranh chỉ hiện sau cột hội thoại; thanh bên chỉ đổi màu.
-- Bản terminal và tiện ích trong trình soạn thảo không hiện theme.
+- *Swim* is heavy: about 16% CPU and 40–45% GPU on an i7-1065G7 laptop (*Still* takes about 3%). On a slow machine, use *Still*.
+- The scene shows only behind the conversation column; the sidebars only change colour.
+- The terminal and editor extensions draw no themes.
 
-## Giấy phép
+## License
 
-MIT, xem [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).

@@ -21,7 +21,7 @@ Changes to READMEs or screenshots alone may skip the bump.
 
 A theme keeps its own files in `themes/<id>/`: the scenes, plus a `screenshot-<light|dark>.webp` of Claude desktop wearing it.
 
-A new theme gets a row in the theme table of both READMEs (`README.md`, `README_EN.md`). The row shows its light and dark scenes, using the animated ones when it has motion.
+A new theme gets a row in the theme table of both READMEs (`README.md`, `README_VI.md`). The row shows its light and dark scenes, using the animated ones when it has motion.
 
 Once there are more than about five themes, move the table to `themes/README.md`. GitHub shows that file when someone opens the `themes/` folder. The READMEs then keep one demo screenshot and a link to it.
 
@@ -44,7 +44,7 @@ Read the matching one before changing a theme, releasing, or answering a reporte
 - The theme is per session and the desktop runs only about 6 session engines at once: check a fix in more than one session, including one that starts with the theme Off.
 - Whenever what the bar shows may change, call `$.ui.invalidate('ui.render')`: `ui.render` answers are cached.
 - `$.theme.clear()` wipes any plugin's theme: call it only for the owner's own pick of Off, never at session start.
-- Keep the READMEs (Vietnamese `README.md`, English `README_EN.md`) in step with behaviour, short, and in both languages.
+- Keep the READMEs (English `README.md`, Vietnamese `README_VI.md`) in step with behaviour, short, and in both languages.
 - Ask before every push or other publishing step. Before committing, scan the diff for keys, tokens and the owner's real email, and check screenshots for private details.
 
 ## Commits
