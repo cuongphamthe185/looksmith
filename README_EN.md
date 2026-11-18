@@ -59,12 +59,14 @@ When a setting is missing, the bar says so and offers a button that opens it.
 The bar above the input:
 - **Theme**: a theme, or *Off* for the app default.
 - **Light / dark**: follow the OS, always light or always dark.
-- **Motion**: *Still* or *Swim*.
+- **Motion**: *Still*, or moving (*Swim* on Koi Pond, *Blink* on EVA Sticker).
 - **Glass**: *Off* or *Clear* (see-through chat).
 
 The choice applies to every open session. `/themes` opens the same choices in a pane.
 
-**No bar?** Claude desktop runs only a few sessions at a time, so one you have not used for a while has no plugin running yet. Wait a few seconds with it open, or send any message in it.
+**No bar?** The theme and the bar are drawn by the plugin, and the plugin runs only inside an active chat session. This is a Claude desktop limit: with no session, the plugin cannot run or show anything.
+- **Just installed, no session yet:** open the Code tab, start a new session and send any message (for example "hi"). The bar appears above the input, and the theme you pick applies to the sessions you open after.
+- **A session you have not used for a while:** Claude desktop runs only a few sessions at a time. Wait a few seconds with it open, or send any message in it.
 
 ## Notes
 

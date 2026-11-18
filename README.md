@@ -59,12 +59,14 @@ Khi thiếu một mục, hàng chọn sẽ báo và có nút mở đúng cài đ
 Hàng chọn trên ô nhập:
 - **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
 - **Light / dark**: theo hệ điều hành, luôn sáng hoặc luôn tối.
-- **Motion**: *Still* (tĩnh) hoặc *Swim* (chuyển động).
+- **Motion**: *Still* (tĩnh) hoặc chuyển động (*Swim* với Koi Pond, *Blink* với EVA Sticker).
 - **Glass**: *Off* hoặc *Clear* (khung chat trong suốt).
 
 Lựa chọn áp cho mọi phiên đang mở. Gõ `/themes` để mở các lựa chọn trong khung riêng.
 
-**Không thấy hàng chọn?** Claude desktop chỉ chạy một số phiên cùng lúc, nên phiên lâu không dùng chưa có plugin. Chờ vài giây khi mở phiên đó, hoặc gửi một tin nhắn bất kỳ.
+**Không thấy hàng chọn?** Theme và hàng chọn do plugin vẽ, mà plugin chỉ chạy bên trong một phiên chat đang hoạt động. Đây là giới hạn của Claude desktop: chưa có phiên thì plugin không chạy được và không hiện gì.
+- **Mới cài, chưa có phiên nào:** mở tab Code, tạo phiên mới và gửi một tin nhắn bất kỳ (ví dụ "hi"). Hàng chọn sẽ hiện trên ô nhập, và theme đã chọn sẽ áp cho các phiên mở sau.
+- **Phiên lâu không dùng:** Claude desktop chỉ chạy một số phiên cùng lúc. Chờ vài giây khi mở phiên đó, hoặc gửi một tin nhắn bất kỳ.
 
 ## Lưu ý
 
