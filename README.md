@@ -29,6 +29,7 @@ Themes for Claude desktop: pick one right above the input, light and dark follow
 | --- | --- | --- |
 | **EVA Sticker**: flat five-colour sticker, a purple mecha head, yellow clouds, the word 天使; four eyes blink | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, day"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, night"> |
 | **Itachi**: two red Sharingan eyes under the leaf headband, one weeping blood; the eyes turn from one tomoe to three, then to the Mangekyo, and the blood drips | dark only: no light/dark switch | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
+| **Exodia**: a faint gold Exodia emblem, nemes headdress and striped wings in front of a brown star, black and gold by night, papyrus by day; the sparkles twinkle and smoke curls out of the mouth, then it rests | <img src="themes/exodia/breath-day.svg" width="320" alt="Exodia, day"> | <img src="themes/exodia/breath-night.svg" width="320" alt="Exodia, night"> |
 | **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
 
 ## Install

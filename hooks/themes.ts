@@ -173,4 +173,70 @@ export const THEMES: readonly ThemeDef[] = [
         'Animated plays an 18-second loop in both eyes: one tomoe, then a second and a third slide out along the ring, then the tomoe spin away into the Mangekyo with a red flash, which holds for four seconds before the eyes return to one tomoe; drops of blood run down the tears from the left eye. Only 13 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (a much simpler scene than Koi Pond, so expect less than Animated on Koi Pond).',
     },
   },
+  {
+    // Pharaoh black and gold, colours sampled from the fan art it is drawn from: black, nemes
+    // stripe #21180f, star brown #5b3617, bronze #a88752, old gold #caa768, Pharaoh gold #efc463,
+    // cream #e7c686, white #f4f3f3; by day the same art on papyrus #efe2c0. Scenes (the emblem
+    // traced from one image, its face from another): art/make-exodia-scene.mjs; the animated
+    // ones add the sparkle burst and the smoke on top of the still ones:
+    // art/make-exodia-anim.mjs --ship (both outside this repo).
+    id: 'exodia',
+    label: 'Exodia',
+    alt: 'A faint gold Exodia emblem in the middle: a nemes headdress fanned into curved petals and two black-and-gold striped wings in front of a brown five-pointed star, with a detailed face: a cobra rising from the brow, slanted horn-like brows, glaring pale eyes, a grin of big square teeth and a pendant with two scrolls under the chin',
+    palette: {
+      label: 'Exodia',
+      light: {
+        gray: {
+          anchors: {
+            'surface-0': '#efe2c0',
+            'surface-1': '#f5ebd2',
+            'surface-2': '#fbf6e9',
+            'text-primary': '#21180f',
+            'text-secondary': '#5b3617',
+            'text-muted': '#6e4a10',
+          },
+        },
+        roles: {
+          accent: { seed: '#7a5313', stops: { 400: '#8a6220', 450: '#7a5313', 600: '#6b480f' } },
+          danger: '#b8321f',
+          success: '#1f7a63',
+          // the stock warning fill is a pale stop (200) that vanishes on papyrus: use the seed's 450
+          warning: { seed: '#b8661a', fillShade: 450 },
+          pro: '#5b7fd1',
+        },
+        // the stock git colours are too light on papyrus and the cream input bar: earthier, darker
+        git: { added: '#2a6b2f', removed: '#962615', modified: '#7a5200', merged: '#5a3fa0', closed: '#962615', conflicting: '#8a4300', draft: '#5e4a2e' },
+      },
+      dark: {
+        gray: {
+          anchors: {
+            'surface-0': '#0a0705',
+            'surface-1': '#110c07',
+            'surface-2': '#18110a',
+            'surface-3': '#21180f',
+            'text-primary': '#f4f3f3',
+            'text-secondary': '#e7c686',
+            'text-muted': '#a88752',
+          },
+        },
+        roles: {
+          // a seed alone gives a dull #977300 fill: the gold the art uses is set by hand on the
+          // stops the dark half reads (300 text, 400 hover, 450 fill)
+          accent: { seed: '#efc463', stops: { 300: '#fad473', 400: '#f5cd6b', 450: '#efc463' } },
+          danger: '#e5533d',
+          success: '#3aa88f',
+          warning: '#e08a2c',
+          pro: '#5b7fd1',
+        },
+      },
+    },
+    backdrop: { light: 'themes/exodia/day.svg', dark: 'themes/exodia/night.svg' },
+    dock: { light: '#e7c686', dark: '#21180f' },
+    motion: {
+      swim: { light: 'themes/exodia/breath-day.svg', dark: 'themes/exodia/breath-night.svg' },
+      status: 'exhaling smoke',
+      about:
+        'Animated plays a 16-second loop over the still scene: the eight gold sparkles twinkle one after another in a single burst, and two streams of smoke roll out of the mouth and drift up beside the face; after about 7.5 seconds nothing moves for the remaining 8.5 seconds. The face itself does not move. Measured in a separate Chrome window at 2760 x 1792, not yet in the desktop app: about 3-4% CPU drawn inline (still: ~2%, Animated on Koi Pond: ~14%), 7-8% as an image; GPU 2-3% inline and ~13% as an image, against ~16% for Animated on Koi Pond in the same run (another app was using the GPU heavily at the time, so treat the GPU figures as rough).',
+    },
+  },
 ]

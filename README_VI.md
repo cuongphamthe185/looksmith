@@ -29,6 +29,7 @@ Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối th
 | --- | --- | --- |
 | **EVA Sticker**: sticker phẳng 5 màu, đầu mecha tím, mây vàng, chữ 天使; 4 mắt chớp | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, ban ngày"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, ban đêm"> |
 | **Itachi**: hai mắt Sharingan đỏ dưới băng trán làng Lá, một mắt chảy máu; mắt chuyển từ 1 tomoe lên 3, rồi thành Mangekyo, máu nhỏ giọt | chỉ có nền tối: không đổi sáng/tối | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
+| **Exodia**: biểu tượng Exodia vàng mờ, mũ nemes và hai cánh sọc trước ngôi sao nâu, đen vàng ban đêm, giấy cói ban ngày; các đốm sao nhấp nháy và khói thở ra từ miệng, rồi nghỉ | <img src="themes/exodia/breath-day.svg" width="320" alt="Exodia, ban ngày"> | <img src="themes/exodia/breath-night.svg" width="320" alt="Exodia, ban đêm"> |
 | **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
 
 ## Cài đặt

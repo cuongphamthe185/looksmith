@@ -1,7 +1,7 @@
 {
   "name": "looksmith",
-  "version": "0.5.0",
-  "description": "A gallery of themes for Claude desktop: pick one from a dropdown, light and dark follow your OS, with optional motion. Ships with Koi Pond, EVA Sticker and Itachi.",
+  "version": "0.6.0-dev.1",
+  "description": "A gallery of themes for Claude desktop: pick one from a dropdown, light and dark follow your OS, with optional motion. Ships with Koi Pond, EVA Sticker, Itachi and Exodia.",
   "author": { "name": "cuongphamthe185" },
   "repository": "https://github.com/cuongphamthe185/looksmith",
   "license": "MIT"
