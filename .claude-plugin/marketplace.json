@@ -1,6 +1,6 @@
 {
   "name": "looksmith",
   "owner": { "name": "cuongphamthe185" },
-  "description": "Looksmith: themes for Claude desktop, starting with Koi Pond.",
+  "description": "Looksmith: themes for Claude desktop: Koi Pond, EVA Sticker, Itachi and Exodia.",
   "plugins": [{ "name": "looksmith", "source": "./" }]
 }

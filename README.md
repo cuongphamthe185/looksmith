@@ -28,8 +28,8 @@ Themes for Claude desktop: pick one right above the input, light and dark follow
 | Theme | Light | Dark |
 | --- | --- | --- |
 | **EVA Sticker**: flat five-colour sticker, a purple mecha head, yellow clouds, the word 天使; four eyes blink | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, day"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, night"> |
-| **Itachi**: two red Sharingan eyes under the leaf headband, one weeping blood; the eyes turn from one tomoe to three, then to the Mangekyo, and the blood drips | dark only: no light/dark switch | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
-| **Exodia**: a faint gold Exodia emblem, nemes headdress and striped wings in front of a brown star, black and gold by night, papyrus by day; the sparkles twinkle and smoke curls out of the mouth, then it rests | <img src="themes/exodia/breath-day.svg" width="320" alt="Exodia, day"> | <img src="themes/exodia/breath-night.svg" width="320" alt="Exodia, night"> |
+| **Itachi**: two red Sharingan eyes under the leaf headband, one weeping blood; the eyes turn from one tomoe to three, then to the Mangekyo, and the blood drips | dark only: no Mode choice | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
+| **Exodia**: a faint gold Exodia emblem, nemes headdress and striped wings in front of a brown star, black and gold by night, papyrus by day; on a 16 s loop the sparkles twinkle in a burst and smoke curls out of the mouth, then all is still for about 8 s (the face does not move) | <img src="themes/exodia/breath-day.svg" width="320" alt="Exodia, day"> | <img src="themes/exodia/breath-night.svg" width="320" alt="Exodia, night"> |
 | **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
 
 ## Install
@@ -67,7 +67,7 @@ To remove every trace, also delete the saved choice: `~/.claude/plugins/store/lo
 ## Requirements
 
 - **Windows:** turn on two settings in Settings → Accessibility → Visual effects. Windows 11 has both on by default.
-  - **Animation effects**, for the swimming koi. If they still stand still, run `SystemPropertiesPerformance.exe` and tick **Animate controls and elements inside windows**.
+  - **Animation effects**, for the moving scenes (swimming koi, blinking eyes, Exodia's smoke). If they still stand still, run `SystemPropertiesPerformance.exe` and tick **Animate controls and elements inside windows**.
   - **Transparency effects**, for clear glass.
 - **macOS:** the full effects work by default. If you turned on *Reduce motion* or *Reduce transparency* (System Settings → Accessibility), turn it off. Not yet tested on a Mac.
 
@@ -90,6 +90,7 @@ The choice applies to every open session. `/themes` opens the same choices in a 
 ## Notes
 
 - *Animated* on Koi Pond is heavy: about 16% CPU and 40–45% GPU on an i7-1065G7 laptop (*Still* takes about 3%). On a slow machine, use *Still*.
+- *Animated* on Exodia is measured so far only in a separate Chrome window at 2760×1792, not yet in the desktop app: about 3–4% CPU drawn inline and 7–8% drawn as an image (Animated on Koi Pond in the same run: about 14%); GPU 2–3% and about 13% (Koi Pond: about 16%; rough, as another app was busy on the GPU). *Still* stays the default.
 - The scene shows only behind the conversation column; the sidebars only change colour.
 - The terminal and editor extensions draw no themes.
 

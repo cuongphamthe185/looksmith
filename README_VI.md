@@ -28,8 +28,8 @@ Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối th
 | Theme | Sáng | Tối |
 | --- | --- | --- |
 | **EVA Sticker**: sticker phẳng 5 màu, đầu mecha tím, mây vàng, chữ 天使; 4 mắt chớp | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, ban ngày"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, ban đêm"> |
-| **Itachi**: hai mắt Sharingan đỏ dưới băng trán làng Lá, một mắt chảy máu; mắt chuyển từ 1 tomoe lên 3, rồi thành Mangekyo, máu nhỏ giọt | chỉ có nền tối: không đổi sáng/tối | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
-| **Exodia**: biểu tượng Exodia vàng mờ, mũ nemes và hai cánh sọc trước ngôi sao nâu, đen vàng ban đêm, giấy cói ban ngày; các đốm sao nhấp nháy và khói thở ra từ miệng, rồi nghỉ | <img src="themes/exodia/breath-day.svg" width="320" alt="Exodia, ban ngày"> | <img src="themes/exodia/breath-night.svg" width="320" alt="Exodia, ban đêm"> |
+| **Itachi**: hai mắt Sharingan đỏ dưới băng trán làng Lá, một mắt chảy máu; mắt chuyển từ 1 tomoe lên 3, rồi thành Mangekyo, máu nhỏ giọt | chỉ có nền tối: không có Mode | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
+| **Exodia**: biểu tượng Exodia vàng mờ, mũ nemes và hai cánh sọc trước ngôi sao nâu, đen vàng ban đêm, giấy cói ban ngày; chu kỳ 16 s: các đốm sao nhấp nháy theo đợt và khói thở ra từ miệng, rồi đứng yên khoảng 8 s (mặt không cử động) | <img src="themes/exodia/breath-day.svg" width="320" alt="Exodia, ban ngày"> | <img src="themes/exodia/breath-night.svg" width="320" alt="Exodia, ban đêm"> |
 | **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
 
 ## Cài đặt
@@ -67,7 +67,7 @@ Muốn xoá sạch, xoá thêm file lựa chọn đã lưu: `~/.claude/plugins/s
 ## Yêu cầu
 
 - **Windows:** bật 2 mục ở Settings → Accessibility → Visual effects. Windows 11 mặc định bật sẵn.
-  - **Animation effects**: để cá bơi. Nếu đã bật mà cá vẫn đứng yên: chạy `SystemPropertiesPerformance.exe` và tick **Animate controls and elements inside windows**.
+  - **Animation effects**: để các cảnh chuyển động (cá bơi, mắt chớp, khói Exodia). Nếu đã bật mà cảnh vẫn đứng yên: chạy `SystemPropertiesPerformance.exe` và tick **Animate controls and elements inside windows**.
   - **Transparency effects**: để có kính trong.
 - **macOS:** mặc định đã dùng được đủ hiệu ứng. Nếu bạn từng bật *Reduce motion* hoặc *Reduce transparency* (System Settings → Accessibility) thì tắt đi. Chưa thử trên Mac.
 
@@ -90,6 +90,7 @@ Lựa chọn áp cho mọi phiên đang mở. Gõ `/themes` để mở các lự
 ## Lưu ý
 
 - *Animated* với Koi Pond tốn tài nguyên: khoảng 16% CPU và 40–45% GPU trên laptop i7-1065G7 (*Still* chỉ khoảng 3%). Máy yếu nên dùng *Still*.
+- *Animated* với Exodia mới chỉ đo trong một cửa sổ Chrome riêng cỡ 2760×1792, chưa đo trong app desktop: khoảng 3–4% CPU khi vẽ inline và 7–8% khi vẽ như ảnh (Koi Pond *Animated* cùng lần đo: khoảng 14%); GPU 2–3% và khoảng 13% (Koi Pond: khoảng 16%; số GPU chỉ tương đối vì lúc đo có app khác đang chiếm GPU). Mặc định vẫn là *Still*.
 - Tranh chỉ hiện sau cột hội thoại; thanh bên chỉ đổi màu.
 - Bản terminal và tiện ích trong trình soạn thảo không hiện theme.
 
