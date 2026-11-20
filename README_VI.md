@@ -4,7 +4,24 @@
 
 Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối theo hệ điều hành, có chuyển động và kính trong.
 
-![Koi Pond trong Claude desktop](themes/koi-pond/screenshot-dark.webp)
+<img src="docs/screenshots.svg" width="100%" alt="Claude desktop lần lượt dùng các theme Looksmith: Koi Pond, EVA Sticker, Itachi">
+
+<details>
+<summary>Xem tất cả ảnh chụp</summary>
+
+**Koi Pond**
+
+<img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond trong Claude desktop">
+
+**EVA Sticker**
+
+<img src="themes/eva-sticker/screenshot-dark.webp" width="100%" alt="EVA Sticker trong Claude desktop">
+
+**Itachi**
+
+<img src="themes/itachi/screenshot-dark.webp" width="100%" alt="Itachi trong Claude desktop">
+
+</details>
 
 ## Theme
 

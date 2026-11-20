@@ -4,7 +4,24 @@
 
 Themes for Claude desktop: pick one right above the input, light and dark follow your OS, with optional motion and clear glass.
 
-![Koi Pond in Claude desktop](themes/koi-pond/screenshot-dark.webp)
+<img src="docs/screenshots.svg" width="100%" alt="Claude desktop wearing Looksmith themes in turn: Koi Pond, EVA Sticker, Itachi">
+
+<details>
+<summary>All screenshots</summary>
+
+**Koi Pond**
+
+<img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond in Claude desktop">
+
+**EVA Sticker**
+
+<img src="themes/eva-sticker/screenshot-dark.webp" width="100%" alt="EVA Sticker in Claude desktop">
+
+**Itachi**
+
+<img src="themes/itachi/screenshot-dark.webp" width="100%" alt="Itachi in Claude desktop">
+
+</details>
 
 ## Themes
 
