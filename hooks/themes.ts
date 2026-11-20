@@ -39,7 +39,7 @@ export type ThemeDef = {
     }
   | {
       /**
-       * One look only: the theme always shows its dark half, whatever the OS or the Light / dark
+       * One look only: the theme always shows its dark half, whatever the OS or the Mode
        * choice, and that dropdown is hidden while it is picked. No light palette or scene.
        */
       fixed: 'dark'

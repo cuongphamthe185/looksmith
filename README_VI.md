@@ -77,7 +77,7 @@ Khi thiếu một mục, hàng chọn sẽ báo và có nút mở đúng cài đ
 
 Hàng chọn trên ô nhập:
 - **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
-- **Light / dark**: theo hệ điều hành, luôn sáng hoặc luôn tối (ẩn với Itachi, theme chỉ có nền tối).
+- **Mode**: theo hệ điều hành, luôn sáng hoặc luôn tối (ẩn với Itachi, theme chỉ có nền tối).
 - **Motion**: *Still* (tĩnh) hoặc *Animated* (chuyển động).
 - **Glass**: *Off* hoặc *Clear* (khung chat trong suốt).
 

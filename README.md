@@ -77,7 +77,7 @@ When a setting is missing, the bar says so and offers a button that opens it.
 
 The bar above the input:
 - **Theme**: a theme, or *Off* for the app default.
-- **Light / dark**: follow the OS, always light or always dark (hidden for Itachi, which is dark only).
+- **Mode**: follow the OS, always light or always dark (hidden for Itachi, which is dark only).
 - **Motion**: *Still* or *Animated*.
 - **Glass**: *Off* or *Clear* (see-through chat).
 

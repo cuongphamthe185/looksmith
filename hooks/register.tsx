@@ -4,9 +4,9 @@ import { checkColors, makeColors } from './make-colors.js'
 import type { ThemeDef } from './themes'
 import { LEGACY_IDS, THEMES } from './themes'
 
-// A Looksmith: dropdowns pick the theme, light/dark (default: follow the OS)
+// A Looksmith: dropdowns pick the theme, mode (light or dark; default: follow the OS)
 // and motion. They live in a bar above the input (hideable) and in a pane opened
-// by /themes. A `fixed` theme has one look: no light/dark choice for it.
+// by /themes. A `fixed` theme has one look: no mode choice for it.
 //
 // Each theme is a palette for the whole app plus an SVG scene drawn behind the
 // conversation. Measured on Claude desktop 5.11:
@@ -277,7 +277,7 @@ async function runCommand($: EngineInterface, args: string): Promise<{ text: str
   if (MODES.includes(arg as Mode)) {
     await pick($, 'mode', arg)
 
-    return { text: `Light/dark: ${arg} (${lastResult})` }
+    return { text: `Mode: ${arg} (${lastResult})` }
   }
   const [word, value] = arg.split(' ')
   const moving = value === undefined ? undefined : own(MOTION_WORDS, value)
@@ -323,7 +323,7 @@ export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: COMMAND,
-      description: 'Pick a theme, light/dark (follows your OS) and motion',
+      description: 'Pick a theme, mode (light or dark, follows your OS) and motion',
       argumentHint: `[${ARGS.join('|')}]`,
       immediate: true,
     })
@@ -412,7 +412,7 @@ export const register: Register = on => {
         <Select key="bar-theme" label="Theme" options={THEME_OPTIONS} value={themeId} onSelect={value => void pick($, 'theme', value)} />
         {themeId !== OFF && def?.fixed === undefined && (
           <Box marginLeft={2}>
-            <Select key="bar-mode" label="Light / dark" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
+            <Select key="bar-mode" label="Mode" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
           </Box>
         )}
         {themeId !== OFF && hasMotion && (
@@ -453,7 +453,7 @@ export const register: Register = on => {
         <Select key="theme" label="Theme" options={THEME_OPTIONS} value={themeId} autoFocus onSelect={value => void pick($, 'theme', value)} />
         {!fixed && (
           <Box marginTop={1}>
-            <Select key="mode" label="Light / dark" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
+            <Select key="mode" label="Mode" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
           </Box>
         )}
         <Box marginTop={1}>
