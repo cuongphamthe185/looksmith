@@ -12,7 +12,7 @@ Themes for Claude desktop: pick one right above the input, light and dark follow
 | --- | --- | --- |
 | **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
 | **EVA Sticker**: flat five-colour sticker, a purple mecha head, yellow clouds, the word 天使; four eyes blink | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, day"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, night"> |
-| **Uchiha**: two red Sharingan eyes under the leaf headband, one weeping blood; the eyes turn from one tomoe to three, then to the Mangekyo | dark only: no light/dark switch | <img src="themes/uchiha/sharingan.svg" width="320" alt="Uchiha"> |
+| **Uchiha**: two red Sharingan eyes under the leaf headband, one weeping blood; the eyes turn from one tomoe to three, then to the Mangekyo, and the blood drips | dark only: no light/dark switch | <img src="themes/uchiha/sharingan.svg" width="320" alt="Uchiha"> |
 
 ## Install
 

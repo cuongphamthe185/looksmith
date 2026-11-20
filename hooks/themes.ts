@@ -170,7 +170,7 @@ export const THEMES: readonly ThemeDef[] = [
       label: 'Sharingan',
       status: 'Sharingan awakening',
       about:
-        'Sharingan plays an 18-second loop in both eyes: one tomoe, then a second and a third slide out along the ring, then the tomoe spin away into the Mangekyo with a red flash, which holds for four seconds before the eyes return to one tomoe. Only 10 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (a much simpler scene than Koi Pond, so expect less than Swim).',
+        'Sharingan plays an 18-second loop in both eyes: one tomoe, then a second and a third slide out along the ring, then the tomoe spin away into the Mangekyo with a red flash, which holds for four seconds before the eyes return to one tomoe; drops of blood run down the tears from the left eye. Only 13 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (a much simpler scene than Koi Pond, so expect less than Swim).',
     },
   },
 ]
