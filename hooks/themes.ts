@@ -22,13 +22,12 @@ export type ThemeDef = {
    * Animated scenes, per mode: SVGs whose CSS/SMIL animation the browser plays
    * itself (art/make-koi-scene.mjs or art/make-eva-scene.mjs with a `.anim.svg`
    * out path). Absent, the theme stays still. The person's choice is stored as
-   * `swim` for every theme; `label` names it in the Motion dropdown, `status` in
-   * the "Showing" line, and `about` says what moves and what it costs. A `fixed`
+   * `swim` for every theme and shown as Animated; `status` names it in the
+   * "Showing" line, and `about` says what moves and what it costs. A `fixed`
    * theme gives only `dark`.
    */
   motion?: {
     swim: Record<'light' | 'dark', string> | { light?: undefined; dark: string }
-    label: string
     status: string
     about: string
   }
@@ -47,6 +46,9 @@ export type ThemeDef = {
       backdrop: { light?: undefined; dark: string }
     }
 )
+
+// Ids a theme had before it was renamed: a person's saved choice may still hold one.
+export const LEGACY_IDS: Readonly<Record<string, string>> = { uchiha: 'itachi' }
 
 export const THEMES: readonly ThemeDef[] = [
   {
@@ -86,10 +88,9 @@ export const THEMES: readonly ThemeDef[] = [
     dock: { light: '#8cc6b9', dark: '#1a454c' },
     motion: {
       swim: { light: 'themes/koi-pond/swim-day.svg', dark: 'themes/koi-pond/swim-night.svg' },
-      label: 'Swim',
       status: 'swimming',
       about:
-        'Swim plays the pond: koi swim, light drifts, ripples spread, lotus sway. It redraws the window every frame: on a mid-range laptop it took about 16% CPU and 40-45% GPU, against about 3% for Still.',
+        'Animated plays the pond: koi swim, light drifts, ripples spread, lotus sway. It redraws the window every frame: on a mid-range laptop it took about 16% CPU and 40-45% GPU, against about 3% for Still.',
     },
   },
   {
@@ -133,21 +134,21 @@ export const THEMES: readonly ThemeDef[] = [
     dock: { light: '#d6cee1', dark: '#27224e' },
     motion: {
       swim: { light: 'themes/eva-sticker/blink-day.svg', dark: 'themes/eva-sticker/blink-night.svg' },
-      label: 'Blink',
       status: 'eyes blinking',
       about:
-        'Blink keeps the four eyes alive on a 10-second loop: they blink alone, twice or in a ripple, and every 10 seconds the visor flickers, the eyes snap shut together and open with yellow irises, a scan line runs down them and the visor flares with a turning star. Only 11 small parts move, but any motion redraws the window every frame: measured on a laptop with integrated graphics and clear glass, about 55% of one CPU core in the GPU process and 70% GPU, against near idle for Still.',
+        'Animated keeps the four eyes alive on a 10-second loop: they blink alone, twice or in a ripple, and every 10 seconds the visor flickers, the eyes snap shut together and open with yellow irises, a scan line runs down them and the visor flares with a turning star. Only 11 small parts move, but any motion redraws the window every frame: measured on a laptop with integrated graphics and clear glass, about 55% of one CPU core in the GPU process and 70% GPU, against near idle for Still.',
     },
   },
   {
     // One dark look, colours sampled from the fan art it is drawn from: black #030303,
-    // greys, red #f30404 and white. Scenes: art/make-uchiha-scene.mjs (outside this repo).
-    id: 'uchiha',
-    label: 'Uchiha',
-    alt: 'Two red Sharingan eyes under a forehead protector with the leaf symbol, the left eye weeping blood, on black',
+    // greys, red #f30404 and white. Scenes: art/make-itachi-scene.mjs (outside this repo).
+    // Called Uchiha (id `uchiha`) until 0.5.0-dev.4: see LEGACY_IDS.
+    id: 'itachi',
+    label: 'Itachi',
+    alt: "Itachi's red Sharingan eyes under a forehead protector with the leaf symbol, the left eye weeping blood, on black",
     fixed: 'dark',
     palette: {
-      label: 'Uchiha',
+      label: 'Itachi',
       // danger leans orange so it stays apart from the blood-red accent
       roles: { accent: '#f30404', danger: '#ff7a5c', success: '#5fb36b', warning: '#e0b040', pro: '#b8b8b8' },
       dark: {
@@ -163,14 +164,13 @@ export const THEMES: readonly ThemeDef[] = [
         },
       },
     },
-    backdrop: { dark: 'themes/uchiha/still.svg' },
+    backdrop: { dark: 'themes/itachi/still.svg' },
     dock: { dark: '#050505' },
     motion: {
-      swim: { dark: 'themes/uchiha/sharingan.svg' },
-      label: 'Sharingan',
+      swim: { dark: 'themes/itachi/sharingan.svg' },
       status: 'Sharingan awakening',
       about:
-        'Sharingan plays an 18-second loop in both eyes: one tomoe, then a second and a third slide out along the ring, then the tomoe spin away into the Mangekyo with a red flash, which holds for four seconds before the eyes return to one tomoe; drops of blood run down the tears from the left eye. Only 13 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (a much simpler scene than Koi Pond, so expect less than Swim).',
+        'Animated plays an 18-second loop in both eyes: one tomoe, then a second and a third slide out along the ring, then the tomoe spin away into the Mangekyo with a red flash, which holds for four seconds before the eyes return to one tomoe; drops of blood run down the tears from the left eye. Only 13 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (a much simpler scene than Koi Pond, so expect less than Animated on Koi Pond).',
     },
   },
 ]

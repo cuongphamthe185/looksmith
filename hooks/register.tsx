@@ -2,7 +2,7 @@ import type { EngineInterface, Register, ThemeColors, ThemeSetArgs } from 'claud
 
 import { checkColors, makeColors } from './make-colors.js'
 import type { ThemeDef } from './themes'
-import { THEMES } from './themes'
+import { LEGACY_IDS, THEMES } from './themes'
 
 // A Looksmith: dropdowns pick the theme, light/dark (default: follow the OS)
 // and motion. They live in a bar above the input (hideable) and in a pane opened
@@ -46,6 +46,9 @@ const PAGE_TOKENS: Record<Half, readonly string[]> = { light: [], dark: ['gray-9
 const DOCK_TOKEN: Record<Half, string> = { light: 'gray-10', dark: 'gray-850' }
 
 type Inputs = Record<string, `#${string}`>
+/** A key's own value in a lookup table (never one inherited from Object, such as "constructor"). */
+const own = <T,>(table: Readonly<Record<string, T>>, key: string): T | undefined =>
+  Object.prototype.hasOwnProperty.call(table, key) ? table[key] : undefined
 const notes: string[] = []
 
 function buildHalf(def: ThemeDef, half: Half): ThemeColors {
@@ -183,7 +186,9 @@ let lastResult = ''
 type Choice = { themeId: string; mode: Mode; bar: boolean; motion: Motion; glass: Glass }
 
 async function choice($: EngineInterface): Promise<Choice> {
-  const themeId = await $.store.get('theme')
+  // a theme renamed since the choice was saved keeps working under its new id
+  const saved = await $.store.get('theme')
+  const themeId = typeof saved === 'string' ? (own(LEGACY_IDS, saved) ?? saved) : saved
   const mode = await $.store.get('mode')
   const bar = await $.store.get('bar')
   const motion = await $.store.get('motion')
@@ -252,10 +257,13 @@ async function pick($: EngineInterface, field: Field, value: string | boolean): 
   $.ui.invalidate('ui.render')
 }
 
-const ARGS = [...THEMES.map(t => t.id), OFF, ...MODES, 'motion off|swim', 'glass off|clear', 'bar on|off']
+const ARGS = [...THEMES.map(t => t.id), OFF, ...MODES, 'motion still|animated', 'glass off|clear', 'bar on|off']
+// What `/themes motion <word>` accepts: the shown names, and the older words and stored values.
+const MOTION_WORDS: Readonly<Record<string, Motion>> = { still: 'off', off: 'off', animated: 'swim', swim: 'swim', on: 'swim' }
 
 async function runCommand($: EngineInterface, args: string): Promise<{ text: string }> {
-  const arg = args.trim().toLowerCase().replace(/\s+/g, ' ')
+  const typed = args.trim().toLowerCase().replace(/\s+/g, ' ')
+  const arg = own(LEGACY_IDS, typed) ?? typed
   if (arg === '') {
     await $.ui.open({ id: PANE, title: 'Themes', focus: true, closeOnEscape: true })
 
@@ -272,11 +280,12 @@ async function runCommand($: EngineInterface, args: string): Promise<{ text: str
     return { text: `Light/dark: ${arg} (${lastResult})` }
   }
   const [word, value] = arg.split(' ')
-  if (word === 'motion' && MOTIONS.includes(value as Motion)) {
-    await pick($, 'motion', value as Motion)
-    const paused = value !== 'off' && osReducesMotion === true ? ' Paused: the OS asks for reduced motion.' : ''
+  const moving = value === undefined ? undefined : own(MOTION_WORDS, value)
+  if (word === 'motion' && moving !== undefined) {
+    await pick($, 'motion', moving)
+    const paused = moving !== 'off' && osReducesMotion === true ? ' Paused: the OS asks for reduced motion.' : ''
 
-    return { text: `Motion: ${value} (${lastResult}).${paused}` }
+    return { text: `Motion: ${moving === 'off' ? 'still' : 'animated'} (${lastResult}).${paused}` }
   }
   if (word === 'glass' && GLASSES.includes(value as Glass)) {
     await pick($, 'glass', value as Glass)
@@ -299,11 +308,11 @@ const modeOptions = () => [
   { value: 'light', label: 'Always light' },
   { value: 'dark', label: 'Always dark' },
 ]
-// The moving choice is stored as `swim` for every theme; each theme names it.
+// One name for every theme: the moving choice is stored as `swim` and shown as Animated.
 const themeMotion = (themeId: string) => THEMES.find(t => t.id === themeId)?.motion
-const motionOptions = (themeId: string) => [
+const MOTION_OPTIONS = [
   { value: 'off', label: 'Still' },
-  { value: 'swim', label: themeMotion(themeId)?.label ?? 'Move' },
+  { value: 'swim', label: 'Animated' },
 ]
 const GLASS_OPTIONS = [
   { value: 'off', label: 'Off' },
@@ -408,7 +417,7 @@ export const register: Register = on => {
         )}
         {themeId !== OFF && hasMotion && (
           <Box marginLeft={2}>
-            <Select key="bar-motion" label="Motion" options={motionOptions(themeId)} value={motion} onSelect={value => void pick($, 'motion', value)} />
+            <Select key="bar-motion" label="Motion" options={MOTION_OPTIONS} value={motion} onSelect={value => void pick($, 'motion', value)} />
           </Box>
         )}
         {themeId !== OFF && (
@@ -448,7 +457,7 @@ export const register: Register = on => {
           </Box>
         )}
         <Box marginTop={1}>
-          <Select key="motion" label="Motion" options={motionOptions(themeId)} value={motion} onSelect={value => void pick($, 'motion', value)} />
+          <Select key="motion" label="Motion" options={MOTION_OPTIONS} value={motion} onSelect={value => void pick($, 'motion', value)} />
         </Box>
         <Box marginTop={1}>
           <Text dimColor>{themeMotion(themeId)?.about ?? 'This theme has no motion: it stays still.'}</Text>
