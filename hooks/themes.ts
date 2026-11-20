@@ -10,10 +10,8 @@ export type ThemeDef = {
   label: string
   /** What the scene shows, for screen readers. */
   alt: string
-  /** Seeds for makeColors: give both `light` and `dark`. */
+  /** Seeds for makeColors: give both `light` and `dark` (only `dark` for a `fixed` theme). */
   palette: Parameters<typeof makeColors>[0]
-  /** The SVG scenes behind the conversation, relative to the plugin folder. */
-  backdrop: { light: string; dark: string }
   /**
    * The colour of the bar holding the input, per mode: pick the scene's water near
    * its bottom edge so the bar sits in the scene. A colour the desktop would refuse
@@ -25,10 +23,30 @@ export type ThemeDef = {
    * itself (art/make-koi-scene.mjs or art/make-eva-scene.mjs with a `.anim.svg`
    * out path). Absent, the theme stays still. The person's choice is stored as
    * `swim` for every theme; `label` names it in the Motion dropdown, `status` in
-   * the "Showing" line, and `about` says what moves and what it costs.
+   * the "Showing" line, and `about` says what moves and what it costs. A `fixed`
+   * theme gives only `dark`.
    */
-  motion?: { swim: Record<'light' | 'dark', string>; label: string; status: string; about: string }
-}
+  motion?: {
+    swim: Record<'light' | 'dark', string> | { light?: undefined; dark: string }
+    label: string
+    status: string
+    about: string
+  }
+} & (
+  | {
+      fixed?: undefined
+      /** The SVG scenes behind the conversation, relative to the plugin folder. */
+      backdrop: { light: string; dark: string }
+    }
+  | {
+      /**
+       * One look only: the theme always shows its dark half, whatever the OS or the Light / dark
+       * choice, and that dropdown is hidden while it is picked. No light palette or scene.
+       */
+      fixed: 'dark'
+      backdrop: { light?: undefined; dark: string }
+    }
+)
 
 export const THEMES: readonly ThemeDef[] = [
   {
@@ -119,6 +137,40 @@ export const THEMES: readonly ThemeDef[] = [
       status: 'eyes blinking',
       about:
         'Blink keeps the four eyes alive on a 10-second loop: they blink alone, twice or in a ripple, and every 10 seconds the visor flickers, the eyes snap shut together and open with yellow irises, a scan line runs down them and the visor flares with a turning star. Only 11 small parts move, but any motion redraws the window every frame: measured on a laptop with integrated graphics and clear glass, about 55% of one CPU core in the GPU process and 70% GPU, against near idle for Still.',
+    },
+  },
+  {
+    // One dark look, colours sampled from the fan art it is drawn from: black #030303,
+    // greys, red #f30404 and white. Scenes: art/make-uchiha-scene.mjs (outside this repo).
+    id: 'uchiha',
+    label: 'Uchiha',
+    alt: 'Two red Sharingan eyes under a forehead protector with the leaf symbol, the left eye weeping blood, on black',
+    fixed: 'dark',
+    palette: {
+      label: 'Uchiha',
+      // danger leans orange so it stays apart from the blood-red accent
+      roles: { accent: '#f30404', danger: '#ff7a5c', success: '#5fb36b', warning: '#e0b040', pro: '#b8b8b8' },
+      dark: {
+        gray: {
+          anchors: {
+            'surface-0': '#070707',
+            'surface-1': '#0d0d0d',
+            'surface-2': '#151515',
+            'text-primary': '#ededed',
+            'text-secondary': '#bdbdbd',
+            'text-muted': '#8c8c8c',
+          },
+        },
+      },
+    },
+    backdrop: { dark: 'themes/uchiha/still.svg' },
+    dock: { dark: '#050505' },
+    motion: {
+      swim: { dark: 'themes/uchiha/sharingan.svg' },
+      label: 'Sharingan',
+      status: 'Sharingan awakening',
+      about:
+        'Sharingan plays an 18-second loop in both eyes: one tomoe, then a second and a third slide out along the ring, then the tomoe spin away into the Mangekyo with a red flash, which holds for four seconds before the eyes return to one tomoe. Only 10 small parts move, but any motion redraws the window every frame; cost not measured on a real machine yet (a much simpler scene than Koi Pond, so expect less than Swim).',
     },
   },
 ]

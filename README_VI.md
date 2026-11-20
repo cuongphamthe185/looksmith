@@ -12,6 +12,7 @@ Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối th
 | --- | --- | --- |
 | **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
 | **EVA Sticker**: sticker phẳng 5 màu, đầu mecha tím, mây vàng, chữ 天使; 4 mắt chớp | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, ban ngày"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, ban đêm"> |
+| **Uchiha**: hai mắt Sharingan đỏ dưới băng trán làng Lá, một mắt chảy máu; mắt chuyển từ 1 tomoe lên 3, rồi thành Mangekyo | chỉ có nền tối: không đổi sáng/tối | <img src="themes/uchiha/sharingan.svg" width="320" alt="Uchiha"> |
 
 ## Cài đặt
 
@@ -58,8 +59,8 @@ Khi thiếu một mục, hàng chọn sẽ báo và có nút mở đúng cài đ
 
 Hàng chọn trên ô nhập:
 - **Theme**: chọn theme, hoặc *Off* để về giao diện gốc.
-- **Light / dark**: theo hệ điều hành, luôn sáng hoặc luôn tối.
-- **Motion**: *Still* (tĩnh) hoặc chuyển động (*Swim* với Koi Pond, *Blink* với EVA Sticker).
+- **Light / dark**: theo hệ điều hành, luôn sáng hoặc luôn tối (ẩn với Uchiha, theme chỉ có nền tối).
+- **Motion**: *Still* (tĩnh) hoặc chuyển động (*Swim* với Koi Pond, *Blink* với EVA Sticker, *Sharingan* với Uchiha).
 - **Glass**: *Off* hoặc *Clear* (khung chat trong suốt).
 
 Lựa chọn áp cho mọi phiên đang mở. Gõ `/themes` để mở các lựa chọn trong khung riêng.

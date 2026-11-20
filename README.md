@@ -12,6 +12,7 @@ Themes for Claude desktop: pick one right above the input, light and dark follow
 | --- | --- | --- |
 | **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
 | **EVA Sticker**: flat five-colour sticker, a purple mecha head, yellow clouds, the word 天使; four eyes blink | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, day"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, night"> |
+| **Uchiha**: two red Sharingan eyes under the leaf headband, one weeping blood; the eyes turn from one tomoe to three, then to the Mangekyo | dark only: no light/dark switch | <img src="themes/uchiha/sharingan.svg" width="320" alt="Uchiha"> |
 
 ## Install
 
@@ -58,8 +59,8 @@ When a setting is missing, the bar says so and offers a button that opens it.
 
 The bar above the input:
 - **Theme**: a theme, or *Off* for the app default.
-- **Light / dark**: follow the OS, always light or always dark.
-- **Motion**: *Still*, or moving (*Swim* on Koi Pond, *Blink* on EVA Sticker).
+- **Light / dark**: follow the OS, always light or always dark (hidden for Uchiha, which is dark only).
+- **Motion**: *Still*, or moving (*Swim* on Koi Pond, *Blink* on EVA Sticker, *Sharingan* on Uchiha).
 - **Glass**: *Off* or *Clear* (see-through chat).
 
 The choice applies to every open session. `/themes` opens the same choices in a pane.

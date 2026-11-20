@@ -6,7 +6,7 @@ import { THEMES } from './themes'
 
 // A Looksmith: dropdowns pick the theme, light/dark (default: follow the OS)
 // and motion. They live in a bar above the input (hideable) and in a pane opened
-// by /themes.
+// by /themes. A `fixed` theme has one look: no light/dark choice for it.
 //
 // Each theme is a palette for the whole app plus an SVG scene drawn behind the
 // conversation. Measured on Claude desktop 5.11:
@@ -66,7 +66,12 @@ function buildHalf(def: ThemeDef, half: Half): ThemeColors {
   return wrap(inputs)
 }
 
-const BUILT = THEMES.map(def => ({ def, light: buildHalf(def, 'light'), dark: buildHalf(def, 'dark') }))
+// A `fixed` theme has one look, so only its dark half is built.
+const BUILT = THEMES.map(def => ({
+  def,
+  light: def.fixed === 'dark' ? undefined : buildHalf(def, 'light'),
+  dark: buildHalf(def, 'dark'),
+}))
 const DEFAULT_THEME = THEMES[0]?.id ?? OFF
 
 // ---------- scenes ----------
@@ -219,13 +224,14 @@ async function applyNow($: EngineInterface, opts: { force?: boolean }): Promise<
   }
   const built = BUILT.find(b => b.def.id === themeId) ?? BUILT[0]
   if (built === undefined) return
-  const dark = mode === 'dark' || (mode === 'auto' && osDark === true)
+  const fixed = built.def.fixed
+  const dark = fixed === 'dark' || mode === 'dark' || (mode === 'auto' && osDark === true)
   const half: Half = dark ? 'dark' : 'light'
   const moving = motion !== 'off' && scenes.has(sceneName(built.def.id, motion, half)) ? motion : 'off'
-  const key = `${built.def.id}|${mode}|${dark}|${moving}|${glass}`
+  const key = `${built.def.id}|${fixed ?? mode}|${dark}|${moving}|${glass}`
   if (key === applied && opts.force !== true) return
   const look: ThemeSetArgs = {
-    colors: built[half],
+    colors: built[half] ?? built.dark,
     backdrop: { scene: sceneName(built.def.id, moving, half), glass: glass === 'clear' ? CLEAR_GLASS : false },
   }
   const set = await $.theme.set(look)
@@ -387,14 +393,15 @@ export const register: Register = on => {
       return next(e)
     }
     const { Box, Select, Button, Text } = $.ui.resolve(e)
-    const hasMotion = THEMES.find(t => t.id === themeId)?.motion !== undefined
+    const def = THEMES.find(t => t.id === themeId)
+    const hasMotion = def?.motion !== undefined
     const paused = themeId !== OFF && motion !== 'off' && osReducesMotion === true
     const solid = themeId !== OFF && glass !== 'off' && osReducesTransparency === true
 
     return (
       <Box flexDirection="row">
         <Select key="bar-theme" label="Theme" options={THEME_OPTIONS} value={themeId} onSelect={value => void pick($, 'theme', value)} />
-        {themeId !== OFF && (
+        {themeId !== OFF && def?.fixed === undefined && (
           <Box marginLeft={2}>
             <Select key="bar-mode" label="Light / dark" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
           </Box>
@@ -430,13 +437,16 @@ export const register: Register = on => {
     const { themeId, mode, bar, motion, glass } = await choice($)
     const paused = themeId !== OFF && motion !== 'off' && osReducesMotion === true
     const solid = themeId !== OFF && glass !== 'off' && osReducesTransparency === true
+    const fixed = THEMES.find(t => t.id === themeId)?.fixed !== undefined
 
     return (
       <Box flexDirection="column">
         <Select key="theme" label="Theme" options={THEME_OPTIONS} value={themeId} autoFocus onSelect={value => void pick($, 'theme', value)} />
-        <Box marginTop={1}>
-          <Select key="mode" label="Light / dark" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
-        </Box>
+        {!fixed && (
+          <Box marginTop={1}>
+            <Select key="mode" label="Light / dark" options={modeOptions()} value={mode} onSelect={value => void pick($, 'mode', value)} />
+          </Box>
+        )}
         <Box marginTop={1}>
           <Select key="motion" label="Motion" options={motionOptions(themeId)} value={motion} onSelect={value => void pick($, 'motion', value)} />
         </Box>
