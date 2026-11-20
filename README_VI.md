@@ -4,14 +4,10 @@
 
 Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối theo hệ điều hành, có chuyển động và kính trong.
 
-<img src="docs/screenshots.svg" width="100%" alt="Claude desktop lần lượt dùng các theme Looksmith: Koi Pond, EVA Sticker, Itachi">
+<img src="docs/screenshots.svg" width="100%" alt="Claude desktop lần lượt dùng các theme Looksmith: EVA Sticker, Itachi, Koi Pond">
 
 <details>
 <summary>Xem tất cả ảnh chụp</summary>
-
-**Koi Pond**
-
-<img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond trong Claude desktop">
 
 **EVA Sticker**
 
@@ -21,15 +17,19 @@ Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối th
 
 <img src="themes/itachi/screenshot-dark.webp" width="100%" alt="Itachi trong Claude desktop">
 
+**Koi Pond**
+
+<img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond trong Claude desktop">
+
 </details>
 
 ## Theme
 
 | Theme | Sáng | Tối |
 | --- | --- | --- |
-| **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
 | **EVA Sticker**: sticker phẳng 5 màu, đầu mecha tím, mây vàng, chữ 天使; 4 mắt chớp | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, ban ngày"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, ban đêm"> |
 | **Itachi**: hai mắt Sharingan đỏ dưới băng trán làng Lá, một mắt chảy máu; mắt chuyển từ 1 tomoe lên 3, rồi thành Mangekyo, máu nhỏ giọt | chỉ có nền tối: không đổi sáng/tối | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
+| **Koi Pond**: ao koi, lá sen, hoa sen; 3 con koi bơi | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, ban ngày"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, ban đêm"> |
 
 ## Cài đặt
 

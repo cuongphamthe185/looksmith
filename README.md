@@ -4,14 +4,10 @@
 
 Themes for Claude desktop: pick one right above the input, light and dark follow your OS, with optional motion and clear glass.
 
-<img src="docs/screenshots.svg" width="100%" alt="Claude desktop wearing Looksmith themes in turn: Koi Pond, EVA Sticker, Itachi">
+<img src="docs/screenshots.svg" width="100%" alt="Claude desktop wearing Looksmith themes in turn: EVA Sticker, Itachi, Koi Pond">
 
 <details>
 <summary>All screenshots</summary>
-
-**Koi Pond**
-
-<img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond in Claude desktop">
 
 **EVA Sticker**
 
@@ -21,15 +17,19 @@ Themes for Claude desktop: pick one right above the input, light and dark follow
 
 <img src="themes/itachi/screenshot-dark.webp" width="100%" alt="Itachi in Claude desktop">
 
+**Koi Pond**
+
+<img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond in Claude desktop">
+
 </details>
 
 ## Themes
 
 | Theme | Light | Dark |
 | --- | --- | --- |
-| **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
 | **EVA Sticker**: flat five-colour sticker, a purple mecha head, yellow clouds, the word 天使; four eyes blink | <img src="themes/eva-sticker/blink-day.svg" width="320" alt="EVA Sticker, day"> | <img src="themes/eva-sticker/blink-night.svg" width="320" alt="EVA Sticker, night"> |
 | **Itachi**: two red Sharingan eyes under the leaf headband, one weeping blood; the eyes turn from one tomoe to three, then to the Mangekyo, and the blood drips | dark only: no light/dark switch | <img src="themes/itachi/sharingan.svg" width="320" alt="Itachi"> |
+| **Koi Pond**: a koi pond with lily pads and lotus flowers; three koi swim | <img src="themes/koi-pond/swim-day.svg" width="320" alt="Koi Pond, day"> | <img src="themes/koi-pond/swim-night.svg" width="320" alt="Koi Pond, night"> |
 
 ## Install
 
