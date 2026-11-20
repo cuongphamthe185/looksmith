@@ -17,6 +17,10 @@ Bộ theme cho Claude desktop: chọn theme ngay trên ô nhập, sáng/tối th
 
 <img src="themes/itachi/screenshot-dark.webp" width="100%" alt="Itachi trong Claude desktop">
 
+**Exodia**
+
+<img src="themes/exodia/screenshot-dark.webp" width="100%" alt="Exodia trong Claude desktop, khói thở ra từ miệng">
+
 **Koi Pond**
 
 <img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond trong Claude desktop">

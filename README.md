@@ -17,6 +17,10 @@ Themes for Claude desktop: pick one right above the input, light and dark follow
 
 <img src="themes/itachi/screenshot-dark.webp" width="100%" alt="Itachi in Claude desktop">
 
+**Exodia**
+
+<img src="themes/exodia/screenshot-dark.webp" width="100%" alt="Exodia in Claude desktop, with smoke breathing out of the mouth">
+
 **Koi Pond**
 
 <img src="themes/koi-pond/screenshot-dark.webp" width="100%" alt="Koi Pond in Claude desktop">
